@@ -11,7 +11,8 @@ const _setPlants = (plants) => {
 
 export const fetchPlants = () => {
     return async (dispatch) => {
-        const { data: plants } = await axios.get('/api/plants')
+        const { data: plants } = await axios.get('/api/plant-friends')
+        console.log('plant data', plants)
         dispatch(_setPlants(plants))
     }
 }

@@ -1,13 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import allPlants from '../store/allPlants'
+import {fetchPlants} from '../store/allPlants'
 
 export class AllPlants extends React.Component {
+  
   componentDidMount() {
     this.props.fetchPlants()
+    console.log('component mounted')
   }
   render() {
+    
+    console.log('what are my props', this.props)
     return (
       <div>
         <h1 style='text-align:center'>Welcome to TERRA - for all your plant friend needs</h1>
