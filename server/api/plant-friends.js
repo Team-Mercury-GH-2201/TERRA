@@ -1,4 +1,4 @@
-const { Plant } = require('../db');
+const Plant = require('../db/models/Plant');
 const router = require('express').Router();
 
 router.get('/', async (req, res, next) => {

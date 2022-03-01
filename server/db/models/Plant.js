@@ -14,13 +14,13 @@ const Plant = db.define('plant', {
     allowNull: false,
   },
   description: {
-    type: Sequelize.STRING(1000),
+    type: Sequelize.STRING,
   },
   careInstructions: {
     type: Sequelize.STRING,
   },
   price: {
-    type: Sequelize.DECIMAL(2),
+    type: Sequelize.DECIMAL,
   },
   imageLink: {
     type: Sequelize.STRING,
