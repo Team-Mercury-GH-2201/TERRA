@@ -24,7 +24,7 @@ const Plant = db.define('plant', {
   },
   imageLink: {
     type: Sequelize.STRING,
-    defaultValue: '/plant_baby_2.0.png',
+    defaultValue: 'https://lh3.googleusercontent.com/h_XMcnkmJ8YaF69F4rhKtFLtGVA3zauAlOcjJHfAn0kpo1UfIyyVym61rHfovPgFIQpiRWfRPcnokafO59Ad1MyC3FvuiSSrGSe5cVgNXhcjoOmTf_eDHOodChWKvX9Yor3NO_TX9A=w600-h315-p-k',
   },
 });
 

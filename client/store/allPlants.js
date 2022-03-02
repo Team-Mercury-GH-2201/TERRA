@@ -11,9 +11,13 @@ const _setPlants = (plants) => {
 
 export const fetchPlants = () => {
     return async (dispatch) => {
-        const { data: plants } = await axios.get('/api/plant-friends')
-        console.log('plant data', plants)
-        dispatch(_setPlants(plants))
+        try {
+            const { data } = await axios.get('/api/plant-friends')
+            console.log('plant data', data)
+            dispatch(_setPlants(data))
+        } catch(err) {
+            console.error('error in fetchPlants thunk!', err)
+        }
     }
 }
 
