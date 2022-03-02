@@ -7,13 +7,28 @@ export class AllUsers extends React.Component {
     this.props.fetchUsers();
   }
   render() {
+    const { users } = this.props;
+    console.log('users array', users);
     return (
       <div>
         <h2>All Users</h2>
+        {users.map((user) => {
+          return (
+            <div key={user.id}>
+              <h4>{user.username}</h4>
+            </div>
+          );
+        })}
       </div>
     );
   }
 }
+
+const mapState = (state) => {
+  return {
+    users: state.users,
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
@@ -21,4 +36,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatch)(AllUsers);
+export default connect(mapState, mapDispatch)(AllUsers);
