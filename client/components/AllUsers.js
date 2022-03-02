@@ -8,14 +8,15 @@ export class AllUsers extends React.Component {
   }
   render() {
     const { users } = this.props;
-    console.log('users array', users);
     return (
       <div>
         <h2>All Users</h2>
         {users.map((user) => {
           return (
-            <div key={user.id}>
-              <h4>{user.username}</h4>
+            <div key={user.id} className="user-table">
+              <div>
+                <h4>{user.id}. {user.username}</h4>
+              </div>
             </div>
           );
         })}
