@@ -26,7 +26,7 @@ export class AllPlants extends React.Component {
             <div className="PlantInfo" key={plantObj.id}>
                 <h3>Plant Friend Name: {plantObj.name}</h3>
               <div />
-              <div>{plantObj.imageLink}</div>
+              <img src={plantObj.imageLink}/>
               <div>Species: {plantObj.species}</div>
               <div />
               <div>About Your Plant Friend: {plantObj.description}</div>
