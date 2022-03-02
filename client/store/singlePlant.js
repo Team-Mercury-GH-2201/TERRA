@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const SET_PLANT = "SET_PlANT";
+const SET_plant = "SET_PlANT";
 
 const setplant = (plant) => {
   return {
