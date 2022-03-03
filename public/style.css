@@ -20,7 +20,18 @@ form div {
   display: inline-block;
 }
 
+.user-table {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 300px;
+  padding: 5px;
+}
+
+
 .nav-bar-heading {
   color:darkgreen;
   text-align: center;
 }
+

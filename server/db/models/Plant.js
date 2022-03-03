@@ -23,7 +23,8 @@ const Plant = db.define('plant', {
     type: Sequelize.DECIMAL,
   },
   imageLink: {
-    type: Sequelize.TEXT,
+    type: Sequelize.STRING,
+    validate: { isUrl: true },
     defaultValue: 'https://lh3.googleusercontent.com/h_XMcnkmJ8YaF69F4rhKtFLtGVA3zauAlOcjJHfAn0kpo1UfIyyVym61rHfovPgFIQpiRWfRPcnokafO59Ad1MyC3FvuiSSrGSe5cVgNXhcjoOmTf_eDHOodChWKvX9Yor3NO_TX9A=w600-h315-p-k',
   },
 });
