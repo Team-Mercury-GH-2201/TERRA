@@ -11,7 +11,7 @@ class CreatePlant extends React.Component {
             description: '',
             careInstructions: '',
             imageLink: '',
-            price: '',
+            price: 0,
             errorMessage: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,7 +28,7 @@ class CreatePlant extends React.Component {
             this.setState({ errorMessage: 'You must enter a name and species!' });
         } else {
             this.props.createPlant({...this.state})
-            this.setState({ name: '', species: '', description: '', careInstructions: '', imageLink: '',  price: '', errorMessage: ''})
+            this.setState({ name: '', species: '', description: '', careInstructions: '', imageLink: '',  price: 0, errorMessage: ''})
         }
     }
     render() {
