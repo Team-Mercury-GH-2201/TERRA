@@ -26,7 +26,7 @@ const AuthForm = (props) => {
             placeholder="Username"
           />
         </div>
-        {(displayName === 'Sign Up') ? <input className="input-field" name="email" type="text" placeholder="E-mail"/> : console.log('login') }
+        {(displayName === 'Sign Up') ? <input className="input-field" name="email" type="text" placeholder="E-mail"/> : null }
         <div>
           <input
             className="input-field"

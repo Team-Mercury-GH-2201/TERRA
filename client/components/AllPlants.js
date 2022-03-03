@@ -17,7 +17,7 @@ export class AllPlants extends React.Component {
     return (
       <div>
       <Navbar />
-        </div>
+        <div></div>
 
         <ul id="allPlantsView">
           {this.props.plants.map(plantObj => (
