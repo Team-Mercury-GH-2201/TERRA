@@ -40,4 +40,14 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const plant = await Plant.findByPk(req.params.id);
+    await plant.destroy();
+    res.send(plant);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
