@@ -1,25 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {fetchPlants} from '../store/allPlants'
+import {fetchPlants} from '../store/allPlants';
+import Navbar from './Navbar'
 
 export class AllPlants extends React.Component {
   
   componentDidMount() {
-    console.log('what are my prop', this.props)
     this.props.getPlants()
-    console.log('component mounted')
   }
   render() {
     const plants = this.props.plants;
     if (!this.props.plants || this.props.plants.length === 0) {
       return <h3> Loading your plants...</h3>;
     }
-    console.log('these are the plants', plants)
     return (
       <div>
-        <h1>Welcome to TERRA - for all your plant friend needs</h1>
-        <div></div>
+      <Navbar />
+        </div>
+
         <ul id="allPlantsView">
           {this.props.plants.map(plantObj => (
             <div className="PlantInfo" key={plantObj.id}>
@@ -42,7 +41,7 @@ export class AllPlants extends React.Component {
 }
 
 const mapState = (state) => {
-  console.log('here is state', state)
+
   return {
     plants: state.plants
   };
