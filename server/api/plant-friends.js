@@ -10,4 +10,15 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/:id', async (req, res, next) => {
+  console.log('params', req.params)
+  try {
+    const singlePlant = await Plant.findByPk(req.params.id)
+    res.send(singlePlant)
+  }
+  catch (err) {
+    next(err);
+  }
+});
+
 module.exports = router;
