@@ -24,7 +24,7 @@ export class SinglePlant extends React.Component {
           <div>Price: {this.props.plant.price}</div>
         </ul>
         <button>Add to Cart</button>
-        <EditPlant match={this.props.match}/>
+        <EditPlant match={this.props.match} history={this.props.history}/>
       </div>
     )
   }
