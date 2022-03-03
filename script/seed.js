@@ -15,8 +15,29 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: 'cody', email: 'cody@gmail.com', password: '123' }),
+    User.create({ username: 'cody', email: 'cody@gmail.com', password: '1234', isAdmin: true }),
+    User.create({ username: 'amber', email: 'amber@gmail.com', password: '5678', isAdmin: true }),
+    User.create({ username: 'lauren', email: 'lauren@gmail.com', password: '9012', isAdmin: true }),
+    User.create({ username: 'anna', email: 'anna@gmail.com', password: '123', isAdmin: true }),
+    User.create({ username: 'grace', email: 'grace@gmail.com', password: '123', isAdmin: true }),
+    User.create({ username: 'maxiel', email: 'maxiel@gmail.com', password: '123', isAdmin: true }),
+    User.create({ username: 'johanna', email: 'johanna@gmail.com', password: '123', isAdmin: true }),
     User.create({ username: 'murphy', email: 'murphyisagoodboy@gmail.com', password: '123' }),
+    User.create({ username: 'joel', email: 'joel@gmail.com', password: '123' }),
+    User.create({ username: 'tom', email: 'tomgoodman@gmail.com', password: '123' }),
+    User.create({ username: 'sally', email: 'hellosally@gmail.com', password: '123' }),
+    User.create({ username: 'annabelle', email: 'annabelle1955@gmail.com', password: '123' }),
+    User.create({ username: 'sailer', email: 'sailer123@gmail.com', password: '123' }),
+    User.create({ username: 'kyu', email: 'kyu9068@gmail.com', password: '123' }),
+    User.create({ username: 'tommy4', email: 'tommy4@gmail.com', password: '123' }),
+    User.create({ username: 'murphy436', email: 'murphy436@gmail.com', password: '123' }),
+    User.create({ username: 'hannah', email: 'hannaa@gmail.com', password: '123' }),
+    User.create({ username: 'Bart', email: 'Bartisagoodboy@gmail.com', password: '123' }),
+    User.create({ username: 'Monika', email: 'Monikaisa@gmail.com', password: '123' }),
+    User.create({ username: 'Juelle', email: 'Juelle123@gmail.com', password: '123' }),
+    User.create({ username: 'Sammy', email: 'Sammy678@gmail.com', password: '123' }),
+    User.create({ username: 'Jonathan', email: 'Jojo@gmail.com', password: '123' }),
+    User.create({ username: 'Jose', email: 'Jose.Gonzalez@gmail.com', password: '123' }),
   ]);
 
   // Creating Plants
