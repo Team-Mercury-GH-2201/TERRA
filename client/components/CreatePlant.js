@@ -9,7 +9,7 @@ class CreatePlant extends React.Component {
             description: '',
             careInstructions: '',
             imageLink: '',
-            price: 0, //confirm what starting point should be here
+            price: '',
             errorMessage: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,26 +21,53 @@ class CreatePlant extends React.Component {
         });
     }
     handleSubmit(event){
-        event.preventDefault();
-
+        event.preventDefault() ;
+        if (!this.state.name || !this.state.species){
+            this.setState({ errorMessage: 'You must enter a name and species!' });
+        } else {
+            //dispatch to thunk
+            // this.props.createPlant({...this.state})
+            // this.setState({ name: '', species: '', description: '', careInstructions: '', imageLink: '',  price: '', errorMessage: ''})
+        }
     }
     render() {
-        const { name, species, description, careInstructions, price, imageLink }
+        const { name, species, description, careInstructions, price, imageLink, errorMessage }
         return (
-            <Form id="createPlantForm" onSubmit={this.handleSubmit} >
-                <label htmlFor="name">Name</label>
-                <input name="name" onChange={this.handleChange} value={name}></input>
-                <label htmlFor="species"></label>
-                <input name="species" onChange={this.handleChange} value={species}></input>
-                <label htmlFor="description"></label>
-                <input name="description" onChange={this.handleChange} value={description}></input>
-                <label htmlFor="careInstructions"></label>
-                <input name="careInstructions" onChange={this.handleChange} value={careInstructions}></input>
-                <label htmlFor="price"></label>
-                <input name="price" onChange={this.handleChange} value={price}></input>
-                <label htmlFor="imageLink"></label>
-                <input name="imageLink" onChange={this.handleChange} value={imageLink}></input>
-            </Form>
+            <div id="form">
+                <Form id="createPlantForm" onSubmit={this.handleSubmit} >
+                    {/* name field */}
+                    <label htmlFor="name">Name</label>
+                    <input name="name" onChange={this.handleChange} value={name}></input>
+                    
+                    {/* species field */}
+                    <label htmlFor="species"></label>
+                    <input name="species" onChange={this.handleChange} value={species}></input>
+                    
+                    {/* description field */}
+                    <label htmlFor="description"></label>
+                    <input name="description" onChange={this.handleChange} value={description}></input>
+                    
+                    {/* care instructions field */}
+                    <label htmlFor="careInstructions"></label>
+                    <input name="careInstructions" onChange={this.handleChange} value={careInstructions}></input>
+                    
+                    {/* price field */}
+                    <label htmlFor="price"></label>
+                    <input name="price" onChange={this.handleChange} value={price}></input>
+                    
+                    {/* image link field */}
+                    <label htmlFor="imageLink"></label>
+                    <input name="imageLink" onChange={this.handleChange} value={imageLink}></input>
+                    
+                    {/* error message */}
+                    {errorMessage ? <p>{errorMessage}</p> : ''};
+                    
+                    {/* submit button */}
+                    <div>
+                        <Button type="submit">Submit</Button>
+                    </div>
+                </Form>
+            </div>
         )
     }
 }
