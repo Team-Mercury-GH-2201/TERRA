@@ -11,7 +11,6 @@ router.get('/', async (req, res, next) => {
 });
 
 router.get('/:id', async (req, res, next) => {
-  console.log('params', req.params)
   try {
     const singlePlant = await Plant.findByPk(req.params.id)
     res.send(singlePlant)
@@ -20,5 +19,13 @@ router.get('/:id', async (req, res, next) => {
     next(err);
   }
 });
+
+router.post('/', async (req, res, next) => {
+  try {
+    res.status(201).send(await Plant.create(req.body));
+  } catch (error) {
+    next(error);
+  }
+})
 
 module.exports = router;

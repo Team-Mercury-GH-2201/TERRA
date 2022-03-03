@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {fetchPlants} from '../store/allPlants';
-import Navbar from './Navbar'
+import { fetchPlants } from '../store/allPlants';
+import CreatePlant from './CreatePlant';
+import Navbar from './Navbar';
 
 export class AllPlants extends React.Component {
-  
   componentDidMount() {
-    this.props.getPlants()
+    this.props.getPlants();
   }
   render() {
     const plants = this.props.plants;
@@ -16,13 +16,21 @@ export class AllPlants extends React.Component {
     }
     return (
       <div>
-      <Navbar />
+        <Navbar />
         <div></div>
-
+        <div id="createPlantView">
+          <h2>Add a new plant</h2>
+          <CreatePlant />
+        </div>
         <ul id="allPlantsView">
-          {this.props.plants.map(plantObj => (
+          {this.props.plants.map((plantObj) => (
             <div className="PlantInfo" key={plantObj.id}>
-                <h3><Link to={`/plant-friends/${plantObj.id}`}> Plant Friend Name: {plantObj.name}</Link></h3>
+              <h3>
+                <Link to={`/plant-friends/${plantObj.id}`}>
+                  {' '}
+                  Plant Friend Name: {plantObj.name}
+                </Link>
+              </h3>
               <div />
               <img src={plantObj.imageLink} />
               <div>Species: {plantObj.species}</div>
@@ -36,22 +44,20 @@ export class AllPlants extends React.Component {
           ))}
         </ul>
       </div>
-    )
+    );
   }
 }
 
 const mapState = (state) => {
-
   return {
-    plants: state.plants
+    plants: state.plants,
   };
 };
 
-
 const mapDispatch = (dispatch) => {
   return {
-    getPlants: () => dispatch(fetchPlants())
-  }
-}
+    getPlants: () => dispatch(fetchPlants()),
+  };
+};
 
 export default connect(mapState, mapDispatch)(AllPlants);
