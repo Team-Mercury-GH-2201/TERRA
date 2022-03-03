@@ -1,9 +1,10 @@
 body {
-  font-family: sans-serif;
+  font-family:Verdana, Geneva, Tahoma, sans-serif
 }
 
 a {
   text-decoration: none;
+  color: black;
 }
 
 label {
@@ -12,15 +13,60 @@ label {
 
 nav a {
   display: inline-block;
-  margin: 1em;
+  margin: 1em 1em 0.5em 1em;
+  font-size: .88em;
 }
 
 form div {
-  margin: 1em;
-  display: inline-block;
+  margin: 0.7em;
 }
 
-.nav-bar-heading {
-  color:darkgreen;
-  text-align: center;
+.user-table {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 300px;
+  padding: 5px;
 }
+
+
+
+.nav-bar-heading {
+  color:#87986a;
+  text-align: center;
+
+  margin: 2em 2em 0em 2em;
+  font-size: 1.5em;
+}
+
+.nav-bar-links {
+  display: flex;
+  justify-content: right;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 3em 3em 0.8em;
+}
+
+.continue-as-guest {
+  font-size: 0.8em;
+  color: black;
+  text-decoration: underline;
+}
+
+.plants-line-up {
+  display: flex;
+  justify-content: center;
+}
+
+.succulent {
+  height: 8em;
+}
+
+
+

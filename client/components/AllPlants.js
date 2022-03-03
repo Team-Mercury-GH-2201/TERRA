@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchPlants } from '../store/allPlants';
 import CreatePlant from './CreatePlant';
+import Navbar from './Navbar';
 
 export class AllPlants extends React.Component {
   componentDidMount() {
     this.props.getPlants();
-    console.log('component mounted');
   }
   render() {
     const plants = this.props.plants;
@@ -16,17 +16,21 @@ export class AllPlants extends React.Component {
     }
     return (
       <div>
-        <h1>Welcome to TERRA - for all your plant friend needs</h1>
+        <Navbar />
         <div></div>
-        <div id="navbar">
-          <span>Login</span>
-          <span>Plant Friends</span>
-          <span>cart</span>
+        <div id="createPlantView">
+          <h2>Add a new plant</h2>
+          <CreatePlant />
         </div>
         <ul id="allPlantsView">
           {this.props.plants.map((plantObj) => (
             <div className="PlantInfo" key={plantObj.id}>
-              <h3>Plant Friend Name: {plantObj.name}</h3>
+              <h3>
+                <Link to={`/plant-friends/${plantObj.id}`}>
+                  {' '}
+                  Plant Friend Name: {plantObj.name}
+                </Link>
+              </h3>
               <div />
               <img src={plantObj.imageLink} />
               <div>Species: {plantObj.species}</div>
@@ -39,10 +43,6 @@ export class AllPlants extends React.Component {
             </div>
           ))}
         </ul>
-        <div className="createPlant">
-          <h2>Add a new plant</h2>
-          <CreatePlant/>
-        </div>
       </div>
     );
   }
