@@ -11,11 +11,15 @@ export class AllUsers extends React.Component {
     return (
       <div>
         <h2>All Users</h2>
+        <h4>ID ** USERNAME ** EMAIL ** ADMIN</h4>
         {users.map((user) => {
           return (
             <div key={user.id} className="user-table">
               <div>
-                <h4>{user.id}. {user.username}</h4>
+                <h4>{user.id}</h4>
+                <h4>{user.username}</h4>
+                <h4>{user.email}</h4>
+                <h4>{`${user.isAdmin}`}</h4>
               </div>
             </div>
           );
