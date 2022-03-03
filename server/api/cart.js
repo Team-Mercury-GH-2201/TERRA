@@ -6,9 +6,10 @@ const router = require('express').Router();
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    const cart = await Cart.findAll({
+    const cart = await Cart.findOne({
       where: {
         userId: req.params.userId,
+        isComplete: false,
       },
       include: [Plant],
     });
