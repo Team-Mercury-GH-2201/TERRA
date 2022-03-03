@@ -4,17 +4,18 @@ const Cart = require('../db/models/Cart');
 
 const router = require('express').Router();
 
-router.get('/:cartId', async (req, res, next) => {
-    try {
-        const cart = await Cart.findByPk(req.params.cartId, {
-            include: [Plant]
-        })
-        res.json(cart);
-
-    } catch (error) {
-        next(error)
-    }
-})
-
+router.get('/:userId', async (req, res, next) => {
+  try {
+    const cart = await Cart.findAll({
+      where: {
+        userId: req.params.userId,
+      },
+      include: [Plant],
+    });
+    res.json(cart);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
