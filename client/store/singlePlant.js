@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const SET_PLANT = "SET_PlANT";
+const SET_PLANT = "SET_PLANT";
 
 const setplant = (plant) => {
   return {
@@ -11,12 +11,13 @@ const setplant = (plant) => {
 
 export const fetchPlant = (id, history) => {
   return async (dispatch) => {
-    const { data: plant } = await axios.get(`/api/plant/${id}`);
-   if (!plant) {
-     history.push("/plant-friends");
-   } else {
-      dispatch(setplant(plant));
-   }
+    const { data } = await axios.get(`/api/plant-friends/${id}`);
+  //  if (!plant) {
+  //    history.push("/plant-friends");
+  //  } else {
+    console.log('what is my single plant data?', data)
+      dispatch(setplant(data));
+  //  }
   };
 };
 
