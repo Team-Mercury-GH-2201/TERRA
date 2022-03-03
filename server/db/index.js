@@ -7,7 +7,11 @@ const Plant = require('./models/Plant');
 const Cart = require('./models/Cart');
 
 //associations could go here!
+User.hasMany(Cart);
+Cart.belongsTo(User);
 
+Plant.belongsToMany(Cart, { through: 'plant-cart' });
+Cart.belongsToMany(Plant, { through: 'plant-cart' });
 
 module.exports = {
   db,
