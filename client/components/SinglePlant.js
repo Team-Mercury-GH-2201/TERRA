@@ -6,16 +6,17 @@ import { Link } from 'react-router-dom';
 export class SinglePlant extends React.Component {
   componentDidMount() {
     this.props.fetchPlant(this.props.match.params.id);
+    console.log("match props", this.props.match)
   }
   render() {
+    console.log("single plant props?", this.props)
     return (
       <div>
         <h1>Welcome to TERRA - for all your plant friend needs</h1>
         <div></div>
-        <div id='navbar' ><span>  Login  </span><span>  Plant Friends  </span><span>  cart  </span></div>
         <ul id="singlePlant">
           <div><strong>Plant Friend Name: {this.props.plant.name}</strong></div>
-          <img src={plantObj.imageLink}/>
+          <img src={this.props.plant.imageLink}/>
           <div>Species: {this.props.plant.species}</div>
           <div>About Your Plant Friend: {this.props.plant.description}</div>
           <div>Care: {this.props.plant.careInstructions}</div>

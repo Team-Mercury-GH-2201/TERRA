@@ -20,11 +20,10 @@ export class AllPlants extends React.Component {
       <div>
         <h1>Welcome to TERRA - for all your plant friend needs</h1>
         <div></div>
-        <div id='navbar' ><span >Login</span><span>Plant Friends</span><span>cart</span></div>
         <ul id="allPlantsView">
           {this.props.plants.map(plantObj => (
             <div className="PlantInfo" key={plantObj.id}>
-                <h3>Plant Friend Name: {plantObj.name}</h3>
+                <h3><Link to={`/plant-friends/${plantObj.id}`}> Plant Friend Name: {plantObj.name}</Link></h3>
               <div />
               <img src={plantObj.imageLink} />
               <div>Species: {plantObj.species}</div>

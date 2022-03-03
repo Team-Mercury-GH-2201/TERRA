@@ -1,11 +1,11 @@
-import React, {Component, Fragment} from 'react'
-import {connect} from 'react-redux'
-import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
+import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
-import {me} from './store'
+import { me } from './store'
 import AllPlants from './components/AllPlants';
-
+import SinglePlant from './components/SinglePlant';
 /**
  * COMPONENT
  */
@@ -15,23 +15,24 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const { isLoggedIn } = this.props
 
     return (
       <div>
         {isLoggedIn ? (
-          
+
           <Switch>
             <Route path="/home" component={Home} />
-            <Route path='/plant-friends' component={ AllPlants }/>
+            <Route path='/plant-friends' component={AllPlants} />
             <Redirect to="/home" />
           </Switch>
         ) : (
           <Switch>
-            <Route path='/' exact component={ Login } />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route path='/plant-friends' component={ AllPlants }/>
+            <Route path='/' exact component={Login} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
+            <Route exact path='/plant-friends' component={AllPlants} />
+            <Route exact path='/plant-friends/:id' component={SinglePlant} />
           </Switch>
         )}
       </div>
