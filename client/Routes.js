@@ -8,6 +8,7 @@ import { me } from './store'
 import AllPlants from './components/AllPlants';
 import SinglePlant from './components/SinglePlant';
 import AllUsers from './components/AllUsers';
+import Cart from './components/Cart';
 
 /**
  * COMPONENT
@@ -37,6 +38,7 @@ class Routes extends Component {
             <Route exact path='/plant-friends' component={AllPlants} />
             <Route exact path='/plant-friends/:id' component={SinglePlant} />
             <Route exact path="/users" component={AllUsers} />
+            <Route exact path="/cart" component={Cart} />
           </Switch>
         )}
       </div>
