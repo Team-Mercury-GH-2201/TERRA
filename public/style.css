@@ -21,10 +21,21 @@ form div {
   margin: 0.7em;
 }
 
+.user-table {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 300px;
+  padding: 5px;
+}
+
+
 
 .nav-bar-heading {
   color:#87986a;
   text-align: center;
+
   margin: 2em 2em 0em 2em;
   font-size: 1.5em;
 }
@@ -56,3 +67,6 @@ form div {
 .succulent {
   height: 8em;
 }
+
+
+
