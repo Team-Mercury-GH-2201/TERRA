@@ -40,6 +40,7 @@ export class AllPlants extends React.Component {
               <div>Care: {plantObj.careInstructions}</div>
               <div />
               <div>Price: {plantObj.price}</div>
+              <button>Add to Cart</button>
             </div>
           ))}
         </ul>

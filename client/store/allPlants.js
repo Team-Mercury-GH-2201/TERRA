@@ -49,10 +49,12 @@ export const createPlant = (plant) => {
 
 export const updateAPlant = (plant, history) => {
   return async (dispatch) => {
-    const { data: updatedPlant } = await Axios.put(`/api/projects/${plant.id}`, plant);
-    dispatch(_editPlant(updatedPlant));
-    dispatch(fetchPlants(updatedPlant))
-    history.push('/');
+    const { data } = await axios.put(`/api/plant-friends/${plant.id}`, plant);
+    console.log('updated plant data', data)
+    console.log('what is my history', history)
+    dispatch(_editPlant(data));
+    // dispatch(fetchPlants(data))
+    history.push('/plant-friends');
   };
 };
 
@@ -62,6 +64,8 @@ export default function plantsReducer(state = [], action) {
       return action.plants;
     case CREATE_PLANT:
       return [...state, action.plant];
+      case EDIT_PLANT:
+        return state.map((plant => plant.id === action.plant.id ? action.plant : plant));
     default:
       return state;
   }
