@@ -28,4 +28,16 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+// /api/plant-friends:id
+router.put('/:id', async (req, res, next) => {
+  try {
+    const plant = await Plant.findByPk(req.params.id)
+    console.log('here is the plant', plant)
+    console.log('here is req.body', req.body)
+    res.send(await plant.update(req.body));
+  } catch (e) {
+    next(e)
+  }
+})
+
 module.exports = router;

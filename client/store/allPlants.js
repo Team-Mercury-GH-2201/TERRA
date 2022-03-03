@@ -2,6 +2,14 @@ import axios from 'axios';
 
 const SET_PLANTS = 'SET_PLANTS';
 const CREATE_PLANT = 'CREATE_PLANT';
+const EDIT_PLANT = 'EDIT_PLANT'
+
+const _editPlant = (plant) => {
+  return {
+    type: EDIT_PLANT,
+    plant
+  }
+}
 
 const _setPlants = (plants) => {
   return {
@@ -36,6 +44,15 @@ export const createPlant = (plant) => {
     } catch (error) {
       console.error('error in create plant', error);
     }
+  };
+};
+
+export const updateAPlant = (plant, history) => {
+  return async (dispatch) => {
+    const { data: updatedPlant } = await Axios.put(`/api/projects/${plant.id}`, plant);
+    dispatch(_editPlant(updatedPlant));
+    dispatch(fetchPlants(updatedPlant))
+    history.push('/');
   };
 };
 
