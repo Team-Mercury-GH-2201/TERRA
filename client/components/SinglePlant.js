@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchPlant } from '../store/singlePlant';
 import { Link } from 'react-router-dom';
+import EditPlant from './EditPlant';
 
 export class SinglePlant extends React.Component {
   componentDidMount() {
@@ -22,6 +23,8 @@ export class SinglePlant extends React.Component {
           <div>Care: {this.props.plant.careInstructions}</div>
           <div>Price: {this.props.plant.price}</div>
         </ul>
+        <button>Add to Cart</button>
+        <EditPlant match={this.props.match} history={this.props.history}/>
       </div>
     )
   }
