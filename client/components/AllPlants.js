@@ -1,11 +1,9 @@
-
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchPlants, deleteAPlant } from '../store/allPlants';
 import CreatePlant from './CreatePlant';
 import Navbar from './Navbar';
-
 
 export class AllPlants extends React.Component {
   componentDidMount() {
@@ -29,12 +27,21 @@ export class AllPlants extends React.Component {
             <div className="PlantInfo" key={plantObj.id}>
               <h3>
                 <Link to={`/plant-friends/${plantObj.id}`}>
-                  {" "}
-                  Plant Friend Name: {plantObj.name} 
+                  {' '}
+                  Plant Friend Name: {plantObj.name}
                 </Link>
-                </Link><span><button type="button" className="remove" onClick={() => this.props.deleteAPlant(plantObj.id)}>X</button></span>
+                <span>
+                  <button
+                    type="button"
+                    className="remove"
+                    onClick={() => this.props.deleteAPlant(plantObj.id)}
+                  >
+                    X
+                  </button>
+                </span>
               </h3>
               <div />
+
               <img className="plant-image" src={plantObj.imageLink} />
               <div className="plant-attributes">
                 <div>Species: {plantObj.species}</div>
@@ -49,7 +56,7 @@ export class AllPlants extends React.Component {
               <div className="price">
                 Price: $
                 {String(plantObj.price / 100).length === 2
-                  ? plantObj.price / 100 + ".00"
+                  ? plantObj.price / 100 + '.00'
                   : plantObj.price / 100}
               </div>
               <button>Add to Cart</button>
@@ -70,7 +77,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getPlants: () => dispatch(fetchPlants()),
-    deleteAPlant: (id) => dispatch(deleteAPlant(id, history))
+    deleteAPlant: (id) => dispatch(deleteAPlant(id, history)),
   };
 };
 
