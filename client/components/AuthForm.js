@@ -46,9 +46,9 @@ const AuthForm = (props) => {
         </Link>
       </form>
       <div className="plants-line-up">
-        <img className="succulent" src="https://cdn.pixabay.com/photo/2020/10/21/04/01/succulent-5672038__340.png" />
-        <img className="succulent" src="https://cdn.pixabay.com/photo/2020/10/21/04/01/succulent-5672038__340.png" />
-        <img className="succulent" src="https://cdn.pixabay.com/photo/2020/10/21/04/01/succulent-5672038__340.png" />
+        <img className="succulent" src="https://lh3.googleusercontent.com/ETpQXos97SWBwkIAQtmI_UYEDJ8kAIkQUkBysXfb4HcFCsRBOMa3SlWRNvrUhjK_b94BQd3UrkADFSsWGpTsUXKyywVxQVE85j4siP_J0H70Qs2VTMLWQM4uip1Ng3KiblWBt_AXzA=w2400" />
+        <img className="succulent" src="https://lh3.googleusercontent.com/ETpQXos97SWBwkIAQtmI_UYEDJ8kAIkQUkBysXfb4HcFCsRBOMa3SlWRNvrUhjK_b94BQd3UrkADFSsWGpTsUXKyywVxQVE85j4siP_J0H70Qs2VTMLWQM4uip1Ng3KiblWBt_AXzA=w2400" />
+        <img className="succulent" src="https://lh3.googleusercontent.com/ETpQXos97SWBwkIAQtmI_UYEDJ8kAIkQUkBysXfb4HcFCsRBOMa3SlWRNvrUhjK_b94BQd3UrkADFSsWGpTsUXKyywVxQVE85j4siP_J0H70Qs2VTMLWQM4uip1Ng3KiblWBt_AXzA=w2400" />
       </div>
     </div>
   );

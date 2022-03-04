@@ -185,9 +185,17 @@ async function seed() {
       price: 2000,
       imageLink: 'https://cdn.shopify.com/s/files/1/0344/2586/4328/products/Anthurium-3_370x480.jpg?v=1639787625'
     }),
-
-
   ]);
+
+  const cart1 = await Cart.create({})
+  const cart2 = await Cart.create({})
+
+  await cart1.setUser(users[0]);
+  await cart2.setUser(users[1]);
+
+  await cart1.addPlants([plants[0], plants[1], plants[2]]);
+  await cart2.addPlants([plants[3], plants[4], plants[5]]);
+
 
   const cart1 = await Cart.create({})
   const cart2 = await Cart.create({})

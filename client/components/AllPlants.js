@@ -1,9 +1,11 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { fetchPlants } from "../store/allPlants";
-import CreatePlant from "./CreatePlant";
-import Navbar from "./Navbar";
+
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { fetchPlants, deleteAPlant } from '../store/allPlants';
+import CreatePlant from './CreatePlant';
+import Navbar from './Navbar';
+
 
 export class AllPlants extends React.Component {
   componentDidMount() {
@@ -28,8 +30,9 @@ export class AllPlants extends React.Component {
               <h3>
                 <Link to={`/plant-friends/${plantObj.id}`}>
                   {" "}
-                  {plantObj.name}
+                  Plant Friend Name: {plantObj.name} 
                 </Link>
+                </Link><span><button type="button" className="remove" onClick={() => this.props.deleteAPlant(plantObj.id)}>X</button></span>
               </h3>
               <div />
               <img className="plant-image" src={plantObj.imageLink} />
@@ -49,6 +52,7 @@ export class AllPlants extends React.Component {
                   ? plantObj.price / 100 + ".00"
                   : plantObj.price / 100}
               </div>
+              <button>Add to Cart</button>
             </div>
           ))}
         </ul>
@@ -66,6 +70,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getPlants: () => dispatch(fetchPlants()),
+    deleteAPlant: (id) => dispatch(deleteAPlant(id, history))
   };
 };
 
