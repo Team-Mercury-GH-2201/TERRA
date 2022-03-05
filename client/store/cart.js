@@ -2,6 +2,7 @@ import axios from 'axios';
 
 // action constants
 const GET_CART = 'GET_CART';
+const SET_QUANTITY = 'SET_QUANTITY';
 
 // action creator
 const _getCart = (cart) => {
@@ -11,18 +12,37 @@ const _getCart = (cart) => {
   };
 };
 
+const _setQuantity = (plantId, userId, quantity) => {
+  return {
+    type: SET_QUANTITY,
+    plantId,
+    userId,
+    quantity
+  };
+};
+
 // thunk
 export const getCart = (userId) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/api/cart/${userId}`);
-      console.log('DATA', data);
       dispatch(_getCart(data));
     } catch (error) {
       console.error('error in getCart', error);
     }
   };
 };
+
+export const setQuantity =  (plantId,  userId, quantity) =>  {
+  return  async (dispatch)  => {
+    try {
+      const { data } = await axios.get(`/api/cart/${userId}`);
+      
+    } catch (error) {
+      console.error('error in  setQuantity', error);
+    }
+  }
+}
 
 // subreducer
 export default function cartReducer(state = {}, action) {
@@ -32,4 +52,4 @@ export default function cartReducer(state = {}, action) {
     default:
       return state;
   }
-};
+}

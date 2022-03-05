@@ -6,13 +6,16 @@ class Cart extends React.Component {
   constructor() {
     super();
     this.state = {
-      quantity: 0,
+      quantity: 1,
     };
   }
   componentDidMount() {
     let userId = this.props.auth;
     this.props.getCart(userId);
   }
+  handleChange (evt) {
+    setQuantity(plantId, evt.target.value);
+  };
   render() {
     const cart = this.props.cart;
     console.log(this.props);
@@ -20,11 +23,47 @@ class Cart extends React.Component {
       return <h3>loading your cart...</h3>;
     }
     return (
-      <div>
-        {cart.plants.map((plant) => {
-          return <div key={plant.id}>Name: {plant.name}</div>;
-        })}
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cart.plants.map((plant, idx) => {
+            return (
+              <tr key={idx}>
+                <td>{plant.name}</td>
+                <td>{plant.price}</td>
+                <td>
+                  <div>
+                    <li
+                      onClick={onClick}
+                      style={{
+                        textDecoration: bought ? 'line-through' : 'none',
+                      }}
+                    >
+                      Quantity
+                    </li>
+                    <select onChange={handleChange}>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                    </select>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     );
   }
 }
@@ -36,6 +75,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getCart: (userId) => dispatch(getCart(userId)),
+    setQuantity: (plantId, num) => dispatch(setQuantity(plantId, num))
   };
 };
 
