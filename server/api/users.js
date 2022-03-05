@@ -18,6 +18,16 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/:id', async (req, res, next) => {
+  try {
+    const singleUser = await User.findByPk(req.params.id)
+    res.send(singleUser)
+  }
+  catch (err) {
+    next(err);
+  }
+});
+
 router.post('/signup', async (req, res, next) => {
   try {
     res.status(201).send(await User.create(req.body));

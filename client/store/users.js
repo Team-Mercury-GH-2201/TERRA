@@ -3,6 +3,14 @@ import { me } from './auth';
 
 const SET_USERS = 'SET_USERS';
 const CREATE_USER = 'CREATE_USER';
+const  SINGLE_USER = 'SINGLE_USER';
+
+const _singleUser = (user) => {
+  return {
+    type: SINGLE_USER,
+    user
+  }
+}
 
 const _setUsers = (users) => {
   return {
@@ -15,6 +23,18 @@ const _createUser = (user) => {
   return {
     type: CREATE_USER,
     user,
+  };
+};
+
+export const fetchUser = (id, history) => {
+  return async (dispatch) => {
+    const { data } = await axios.get(`/api/users/${id}`);
+  //  if (!plant) {
+  //    history.push("/plant-friends");
+  //  } else {
+    console.log('what is my single user data', data)
+      dispatch(_singleUser(data));
+  //  }
   };
 };
 
@@ -50,6 +70,8 @@ export default function usersReducer(state = [], action) {
       return action.users;
     case CREATE_USER:
       return [...state, action.user]
+      case SINGLE_USER:
+        return state.user
     default:
       return state;
   }

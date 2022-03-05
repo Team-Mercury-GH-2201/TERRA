@@ -37,7 +37,7 @@ export const deleteAPlant = (id, history) => {
   return async (dispatch) => {
     const { data } = await axios.delete(`/api/plant-friends/${id}`);
     dispatch(_deletePlant(data));
-    history.push('/');
+    history.push('/plant-friends');
   };
 };
 
