@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { authenticate } from "../store";
 import { Link } from "react-router-dom";
 import Banner from "./Banner";
+import { createUser } from "../store/users";
 
 /**
  * COMPONENT
@@ -76,18 +77,30 @@ const mapSignup = (state) => {
   };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatchLogin = (dispatch) => {
   return {
     handleSubmit(evt) {
       evt.preventDefault();
       const formName = evt.target.name;
       const username = evt.target.username.value;
       const password = evt.target.password.value;
-      // const email = evt.target.email.value
+      console.log('========formName========', formName)
       dispatch(authenticate(username, password, formName));
     },
   };
 };
 
-export const Login = connect(mapLogin, mapDispatch)(AuthForm);
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm);
+const mapDispatchSignup = (dispatch) => {
+  return {
+    handleSubmit(evt) {
+      evt.preventDefault();
+      const username = evt.target.username.value;
+      const password = evt.target.password.value;
+      const email = evt.target.email.value;
+      dispatch(createUser({username: username, email: email, password: password}));
+    },
+  };
+};
+
+export const Login = connect(mapLogin, mapDispatchLogin)(AuthForm);
+export const Signup = connect(mapSignup, mapDispatchSignup)(AuthForm);

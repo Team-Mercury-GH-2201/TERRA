@@ -27,8 +27,10 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
-            <Route path='/plant-friends' component={AllPlants} />
+            <Route exact path='/plant-friends' component={AllPlants} />
+            <Route exact path='/plant-friends/:id' component={SinglePlant} />
             <Route path="/cart" component={Cart} />
+            <Route exact path="/users" component={AllUsers} />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -38,7 +40,6 @@ class Routes extends Component {
             <Route exact path="/signup" component={Signup} />
             <Route exact path='/plant-friends' component={AllPlants} />
             <Route exact path='/plant-friends/:id' component={SinglePlant} />
-            <Route exact path="/users" component={AllUsers} />
             {/* <Route path="/cart/:id" component={Cart} /> */}
           </Switch>
         )}
