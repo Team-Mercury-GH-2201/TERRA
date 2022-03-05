@@ -207,7 +207,13 @@ async function seed() {
   await cart2.addPlants([plants[3], plants[4], plants[5]]);
   await cart3.addPlants([plants[3]]);
   await cart4.addPlants([plants[3], plants[4]]);
-  await cart5.addPlants([plants[3], plants[4], plants[5], plants[4], plants[4], plants[4], plants[6],]);
+  await cart5.addPlants([plants[3], plants[4], plants[5], plants[6]]);
+  try {
+    await cart5.addPlants([plants[1]], {through: {quantity: 2}});
+  } catch (error) {
+    console.error(error);
+  }
+  
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);

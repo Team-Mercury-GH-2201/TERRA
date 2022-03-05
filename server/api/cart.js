@@ -31,14 +31,26 @@ router.put('/:userId', async (req, res, next) => {
       },
       include: {
         model: Plant,
-        where: {
-          id: req.body.id,
+        through: {
+          where: {
+            plantId: req.body.plantId,
+          },
         },
       },
     });
     let plant = plantAndCart.plants[0];
-    let plantToBeUpdated = await plant.update(req.body);
-    res.json(plantToBeUpdated);
+    await plantAndCart.setPlants([plant], { through: { quantity: req.body.quantity } });
+    // let plantToBeUpdated = await plant.update(req.body);
+    const cart = await Cart.findOne({
+      where: {
+        userId: req.params.userId,
+        isComplete: false,
+      },
+      include: {
+        model: Plant,
+      },
+    });
+    res.json(cart);
   } catch (error) {
     next(error);
   }

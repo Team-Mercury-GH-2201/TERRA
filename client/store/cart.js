@@ -17,7 +17,7 @@ const _setQuantity = (plantId, userId, quantity) => {
     type: SET_QUANTITY,
     plantId,
     userId,
-    quantity
+    quantity,
   };
 };
 
@@ -33,16 +33,20 @@ export const getCart = (userId) => {
   };
 };
 
-export const setQuantity =  (plantId,  userId, quantity) =>  {
-  return  async (dispatch)  => {
+export const setQuantity = (plantId, userId, quantity) => {
+  return async (dispatch) => {
     try {
-      const { data } = await axios.get(`/api/cart/${userId}`);
-      
+      const { data } = await axios.put(`/api/cart/${userId}`, {
+        plantId,
+        quantity,
+      });
+      console.log('THUNK QUANTITY DATA', data);
+      dispatch(_setQuantity(data));
     } catch (error) {
       console.error('error in  setQuantity', error);
     }
-  }
-}
+  };
+};
 
 // subreducer
 export default function cartReducer(state = {}, action) {
