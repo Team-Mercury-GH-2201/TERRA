@@ -10,20 +10,28 @@ export class AllUsers extends React.Component {
     const { users } = this.props;
     return (
       <div>
-        <h2>All Users</h2>
-        <h4>ID ** USERNAME ** EMAIL ** ADMIN</h4>
-        {users.map((user) => {
-          return (
-            <div key={user.id} className="user-table">
-              <div>
-                <h4>{user.id}</h4>
-                <h4>{user.username}</h4>
-                <h4>{user.email}</h4>
-                <h4>{`${user.isAdmin}`}</h4>
-              </div>
-            </div>
-          );
-        })}
+        <table className="user-table">
+          <thead>
+            <tr style={{textDecoration: "underline"}}>
+              <th>ID</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Admin</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => {
+              return (
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.username.toLowerCase()}</td>
+                  <td>{user.email}</td>
+                  <td>{user.isAdmin ? "Yes" : "No"}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     );
   }

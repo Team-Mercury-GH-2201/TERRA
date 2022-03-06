@@ -12,12 +12,10 @@ const _getCart = (cart) => {
   };
 };
 
-const _setQuantity = (plantId, userId, quantity) => {
+const _setQuantity = (cart) => {
   return {
     type: SET_QUANTITY,
-    plantId,
-    userId,
-    quantity,
+    cart,
   };
 };
 
@@ -36,12 +34,12 @@ export const getCart = (userId) => {
 export const setQuantity = (plantId, userId, quantity) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`/api/cart/${userId}`, {
+      const { data: updated } = await axios.put(`/api/cart/${userId}`, {
         plantId,
         quantity,
       });
-      console.log('THUNK QUANTITY DATA', data);
-      dispatch(_setQuantity(data));
+      console.log('THUNK QUANTITY DATA', updated);
+      dispatch(_setQuantity(updated));
     } catch (error) {
       console.error('error in  setQuantity', error);
     }
@@ -52,6 +50,8 @@ export const setQuantity = (plantId, userId, quantity) => {
 export default function cartReducer(state = {}, action) {
   switch (action.type) {
     case GET_CART:
+      return action.cart;
+    case SET_QUANTITY:
       return action.cart;
     default:
       return state;

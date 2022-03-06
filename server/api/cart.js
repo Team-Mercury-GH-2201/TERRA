@@ -23,7 +23,6 @@ router.get('/:userId', async (req, res, next) => {
 //  set quantity of logged in user cart
 router.put('/:userId', async (req, res, next) => {
   try {
-    // use req.params to find user's plant in cart
     const plantAndCart = await Cart.findOne({
       where: {
         userId: req.params.userId,
@@ -39,16 +38,17 @@ router.put('/:userId', async (req, res, next) => {
       },
     });
     let plant = plantAndCart.plants[0];
-    await plantAndCart.setPlants([plant], { through: { quantity: req.body.quantity } });
-    // let plantToBeUpdated = await plant.update(req.body);
+    let plantToBeUpdated = await plant.update(req.body);
+
+    await plantAndCart.setPlants([plant], {
+      through: { quantity: req.body.quantity },
+    });
     const cart = await Cart.findOne({
       where: {
         userId: req.params.userId,
         isComplete: false,
       },
-      include: {
-        model: Plant,
-      },
+      include: [Plant],
     });
     res.json(cart);
   } catch (error) {
