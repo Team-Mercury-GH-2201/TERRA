@@ -12,6 +12,8 @@ export class SinglePlant extends React.Component {
   }
   render() {
     console.log(this.props.users)
+    console.log("local storage", window.localStorage)
+    console.log("local storage is admin?", window.localStorage.getItem('isAdmin'))
     return (
       <div>
         <Navbar />
@@ -26,6 +28,8 @@ export class SinglePlant extends React.Component {
         </ul>
         <button>Add to Cart</button>
         <div>
+          {window.localStorage.getItem('isAdmin') === true.toString() ?  (
+          <div>
           <EditPlant match={this.props.match} history={this.props.history} />
           <span>
             <button
@@ -38,6 +42,7 @@ export class SinglePlant extends React.Component {
               Delete
             </button>
           </span>
+          </div>) : null }
         </div>
       </div>
     )

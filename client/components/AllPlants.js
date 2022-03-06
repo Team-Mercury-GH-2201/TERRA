@@ -18,10 +18,11 @@ export class AllPlants extends React.Component {
       <div>
         <Navbar />
         <div></div>
-        <div id="createPlantView">
+        {window.localStorage.getItem('isAdmin') === true.toString() ? 
+        (<div id="createPlantView">
           <h2>Add a new plant</h2>
           <CreatePlant />
-        </div>
+        </div>) : null }
         <ul id="allPlantsView">
           {this.props.plants.map((plantObj) => (
             <div className="PlantInfo" key={plantObj.id}>
