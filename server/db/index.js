@@ -13,6 +13,8 @@ Cart.belongsTo(User);
 Plant.belongsToMany(Cart, { through: 'plant-cart' });
 Cart.belongsToMany(Plant, { through: 'plant-cart' });
 
+
+
 module.exports = {
   db,
   models: {

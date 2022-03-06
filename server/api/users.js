@@ -18,10 +18,3 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.post('/signup', async (req, res, next) => {
-  try {
-    res.status(201).send(await User.create(req.body));
-  } catch (err) {
-    next(err);
-  }
-})

@@ -33,7 +33,7 @@ export const createUser = (user) => {
   const { username, password } = user;
   return async (dispatch) => {
     try {
-      const { data } = await axios.post('/api/users/signup', user);
+      const { data } = await axios.post('/auth/signup', user);
       dispatch(_createUser(data));
       const res = await axios.post(`/auth/login`, {username, password})
       window.localStorage.setItem('token', res.data.token)
