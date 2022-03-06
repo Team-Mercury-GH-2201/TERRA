@@ -1,10 +1,12 @@
 import axios from 'axios';
+import { push } from 'react-router-redux';
 
 // action constants
 const GET_CART = 'GET_CART';
 const SET_QUANTITY = 'SET_QUANTITY';
 const ADD_TO_CART = 'ADD_TO_CART';
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+const CHECKOUT = 'CHECKOUT';
 
 // action creator
 const _getCart = (cart) => {
@@ -34,6 +36,13 @@ const _removeFromCart = (cart) => {
     cart,
   };
 };
+
+const _checkout = (cart) => {
+  return {
+    type: CHECKOUT,
+    cart
+  }
+}
 
 // thunk
 export const getCart = (userId) => {
@@ -90,6 +99,18 @@ export const setQuantity = (plantId, userId, quantity) => {
   };
 };
 
+export const checkOut = (cartId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(`/api/cart/checkout/${cartId}`, {isComplete: true});
+      // console.log('CHECKOUT DATA', data);
+      dispatch(push('/plant-friends'));
+    } catch (error) {
+      console.error('error in checkout thunk', error)
+    }
+  }
+}
+
 // subreducer
 export default function cartReducer(state = {}, action) {
   switch (action.type) {
@@ -100,6 +121,8 @@ export default function cartReducer(state = {}, action) {
     case REMOVE_FROM_CART:
       return action.cart;
     case SET_QUANTITY:
+      return action.cart;
+    case CHECKOUT:
       return action.cart;
     default:
       return state;

@@ -63,6 +63,15 @@ router.put('/remove/:userId', async (req, res, next) => {
   }
 })
 
+router.put('/checkout/:cartId', async (req, res, next) => {
+  try {
+    const cart = await Cart.findByPk(req.params.cartId);
+    res.send(await cart.update(req.body))
+  } catch (error) {
+    next(error);
+  }
+})
+
 //  set quantity of logged in user cart
 // router.put('/:cartId/:userId', async (req, res, next) => {
   // try {

@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCart, removeFromCart, setQuantity } from '../store/cart';
+import { getCart, removeFromCart, setQuantity, checkOut } from '../store/cart';
 
 class Cart extends React.Component {
   constructor() {
     super();
     this.state = {
-      quantity: 0
-    }
+      quantity: 0,
+    };
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
@@ -18,17 +18,20 @@ class Cart extends React.Component {
   handleChange(evt) {
     console.log('This is the plant ID-->', parseInt(evt.target.name));
     console.log('This is the cart ID-->', this.props.cart.id);
-    console.log('This is the event target value-->', parseInt(evt.target.value));
+    console.log(
+      'This is the event target value-->',
+      parseInt(evt.target.value)
+    );
 
-    const plantId = parseInt(evt.target.name)
-    const userId = this.props.auth.id
-    const quantity = parseInt(evt.target.value)
+    const plantId = parseInt(evt.target.name);
+    const userId = this.props.auth.id;
+    const quantity = parseInt(evt.target.value);
 
     setQuantity(plantId, userId, quantity);
   }
   render() {
     if (!this.props.cart) {
-      return <h3>Your cart is empty!</h3>
+      return <h3>Your cart is empty!</h3>;
     }
     const cart = this.props.cart;
     // console.log('PROPS-->', this.props);
@@ -71,26 +74,44 @@ class Cart extends React.Component {
                   </td>
                   <td name="total">{`$${plant.price / 100}`}</td>
                   <td>
-                    <button type="submit" onClick={() => {this.props.removeFromCart(plant, this.props.auth.id)}}>Remove</button>
+                    <button
+                      type="submit"
+                      onClick={() => {
+                        this.props.removeFromCart(plant, this.props.auth.id);
+                      }}
+                    >
+                      Remove
+                    </button>
                   </td>
                 </tr>
               );
             })}
             <tr>
-              <td>Total: </td> 
+              <td>
+                <strong>Total: </strong>
+              </td>
               <td></td>
               <td></td>
-              <td>{
-              cart.plants.reduce((accum, plant) => {
-                return accum + (plant.price/100)
-              }, 0).toFixed(2)}
+              <td>
+                <strong>
+                  {cart.plants
+                    .reduce((accum, plant) => {
+                      return accum + plant.price / 100;
+                    }, 0)
+                    .toFixed(2)}
+                </strong>
               </td>
             </tr>
           </tbody>
         </table>
-        <button type="submit" onClick={() => {
-          //something happens here!
-        }}>Checkout</button>
+        <button
+          type="submit"
+          onClick={() => {
+            this.props.checkOut(cart.id)
+          }}
+        >
+          Checkout
+        </button>
       </div>
     );
   }
@@ -106,6 +127,7 @@ const mapDispatch = (dispatch) => {
     removeFromCart: (plant, userId) => dispatch(removeFromCart(plant, userId)),
     setQuantity: (plantId, userId, quantity) =>
       dispatch(setQuantity(plantId, userId, quantity)),
+    checkOut: (cartId) => dispatch(checkOut(cartId)),
   };
 };
 
