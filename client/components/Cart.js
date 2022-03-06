@@ -76,9 +76,21 @@ class Cart extends React.Component {
                 </tr>
               );
             })}
+            <tr>
+              <td>Total: </td> 
+              <td></td>
+              <td></td>
+              <td>{
+              cart.plants.reduce((accum, plant) => {
+                return accum + (plant.price/100)
+              }, 0).toFixed(2)}
+              </td>
+            </tr>
           </tbody>
         </table>
-        <button type="submit">Checkout</button>
+        <button type="submit" onClick={() => {
+          //something happens here!
+        }}>Checkout</button>
       </div>
     );
   }
