@@ -41,6 +41,28 @@ router.put('/add/:userId', async (req, res, next) => {
   }
 });
 
+// remove from cart
+router.put('/remove/:userId', async (req, res, next) => {
+  try {
+    const cartToAddTo = await Cart.findOne({
+      where: {
+        userId: req.params.userId,
+      },
+      include: [Plant]
+    });
+    await cartToAddTo.removePlant(req.body.id);
+    const updatedCart = await Cart.findOne({
+      where: {
+        userId: req.params.userId,
+      },
+      include: [Plant],
+    });
+    res.json(updatedCart);
+  } catch (error) {
+    next(error)
+  }
+})
+
 //  set quantity of logged in user cart
 // router.put('/:cartId/:userId', async (req, res, next) => {
   // try {

@@ -52,7 +52,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchPlant: (id) => dispatch(fetchPlant(id)),
-    getCart: (userId) => dispatch(getCart(userId)), 
+    getCart: (userId) => dispatch(getCart(userId)),
     addToCart: (plant, userId) => dispatch(addToCart(plant, userId)),
   };
 };

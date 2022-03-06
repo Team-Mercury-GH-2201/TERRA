@@ -61,9 +61,14 @@ export class AllPlants extends React.Component {
                   ? plantObj.price / 100 + '.00'
                   : plantObj.price / 100}
               </div>
-              <button type="submit" onClick={() => {
-                this.props.addToCart(plantObj, parseInt(this.props.auth.id));
-              }}>Add to Cart</button>
+              <button
+                type="submit"
+                onClick={() => {
+                  this.props.addToCart(plantObj, parseInt(this.props.auth.id));
+                }}
+              >
+                Add to Cart
+              </button>
             </div>
           ))}
         </ul>
@@ -75,8 +80,8 @@ export class AllPlants extends React.Component {
 const mapState = (state) => {
   return {
     plants: state.plants,
-    auth:  state.auth,
-    cart:  state.cart
+    auth: state.auth,
+    cart: state.cart,
   };
 };
 

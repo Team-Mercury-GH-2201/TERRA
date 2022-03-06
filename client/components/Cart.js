@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCart, setQuantity } from '../store/cart';
+import { getCart, removeFromCart, setQuantity } from '../store/cart';
 
 class Cart extends React.Component {
   constructor() {
@@ -31,7 +31,7 @@ class Cart extends React.Component {
       return <h3>Your cart is empty!</h3>
     }
     const cart = this.props.cart;
-    console.log('PROPS-->', this.props);
+    // console.log('PROPS-->', this.props);
     if (!cart.plants) {
       return <h3>loading your cart...</h3>;
     }
@@ -71,7 +71,7 @@ class Cart extends React.Component {
                   </td>
                   <td name="total">{`$${plant.price / 100}`}</td>
                   <td>
-                    <button type="submit">Remove</button>
+                    <button type="submit" onClick={() => {this.props.removeFromCart(plant, this.props.auth.id)}}>Remove</button>
                   </td>
                 </tr>
               );
@@ -90,6 +90,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getCart: (userId) => dispatch(getCart(userId)),
+    removeFromCart: (plant, userId) => dispatch(removeFromCart(plant, userId)),
     setQuantity: (plantId, userId, quantity) =>
       dispatch(setQuantity(plantId, userId, quantity)),
   };
