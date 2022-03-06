@@ -78,6 +78,7 @@ class Cart extends React.Component {
             })}
           </tbody>
         </table>
+        <button type="submit">Checkout</button>
       </div>
     );
   }
