@@ -28,7 +28,7 @@ router.put('/add/:userId', async (req, res, next) => {
       },
       include: [Plant]
     });
-    if (!cartToAddTo){
+    if (!cartToAddTo || cartToAddTo.isComplete === true){
       cartToAddTo = await Cart.create({});
       cartToAddTo.setUser(req.params.userId);
     }
