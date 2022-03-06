@@ -62,7 +62,6 @@ export class AllPlants extends React.Component {
                   : plantObj.price / 100}
               </div>
               <button type="submit" onClick={() => {
-                // console.log(plantObj);
                 this.props.addToCart(plantObj, parseInt(this.props.auth.id));
               }}>Add to Cart</button>
             </div>
