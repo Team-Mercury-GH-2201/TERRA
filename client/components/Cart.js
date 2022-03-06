@@ -107,7 +107,7 @@ class Cart extends React.Component {
         <button
           type="submit"
           onClick={() => {
-            this.props.checkOut(cart.id)
+            this.props.checkOut(cart.id);
           }}
         >
           Checkout
@@ -121,13 +121,13 @@ const mapState = (state) => {
   return { cart: state.cart, auth: state.auth };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, { history }) => {
   return {
     getCart: (userId) => dispatch(getCart(userId)),
     removeFromCart: (plant, userId) => dispatch(removeFromCart(plant, userId)),
     setQuantity: (plantId, userId, quantity) =>
       dispatch(setQuantity(plantId, userId, quantity)),
-    checkOut: (cartId) => dispatch(checkOut(cartId)),
+    checkOut: (cartId) => dispatch(checkOut(cartId, history)),
   };
 };
 

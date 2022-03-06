@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { push } from 'react-router-redux';
+
 
 // action constants
 const GET_CART = 'GET_CART';
@@ -99,12 +99,12 @@ export const setQuantity = (plantId, userId, quantity) => {
   };
 };
 
-export const checkOut = (cartId) => {
+export const checkOut = (cartId, history) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.put(`/api/cart/checkout/${cartId}`, {isComplete: true});
-      // console.log('CHECKOUT DATA', data);
-      dispatch(push('/plant-friends'));
+      history.push('/plant-friends');
+      // dispatch(push('/plant-friends'));
     } catch (error) {
       console.error('error in checkout thunk', error)
     }
