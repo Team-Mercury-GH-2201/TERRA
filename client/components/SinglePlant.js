@@ -4,18 +4,17 @@ import { fetchPlant } from '../store/singlePlant';
 import { deleteAPlant } from '../store/allPlants';
 import { Link } from 'react-router-dom';
 import EditPlant from './EditPlant';
-import { fetchUsers } from '../store/users';
+import Navbar from './Navbar'
 
 export class SinglePlant extends React.Component {
   componentDidMount() {
     this.props.fetchPlant(this.props.match.params.id);
-    this.props.fetchUsers(this.props.match.params.id)
   }
   render() {
     console.log(this.props.users)
     return (
       <div>
-        <h1>Welcome to TERRA - for all your plant friend needs</h1>
+        <Navbar />
         <div></div>
         <ul id="singlePlant">
           <div><strong>Plant Friend Name: {this.props.plant.name}</strong></div>
@@ -26,23 +25,20 @@ export class SinglePlant extends React.Component {
           <div>Price: {this.props.plant.price}</div>
         </ul>
         <button>Add to Cart</button>
-        {this.props.users.isAdmin === true ?
-          (<div>
-            <EditPlant match={this.props.match} history={this.props.history} />
-            <span>
-              <button
-                match={this.props.match}
-                history={this.props.history}
-                type="button"
-                className="remove"
-                onClick={() => this.props.deleteAPlant(this.props.plant.id)}
-              >
-                Delete
-              </button>
-            </span>
-          </div>
-          ) : null}
-
+        <div>
+          <EditPlant match={this.props.match} history={this.props.history} />
+          <span>
+            <button
+              match={this.props.match}
+              history={this.props.history}
+              type="button"
+              className="remove"
+              onClick={() => this.props.deleteAPlant(this.props.plant.id)}
+            >
+              Delete
+            </button>
+          </span>
+        </div>
       </div>
     )
   }
@@ -51,7 +47,6 @@ export class SinglePlant extends React.Component {
 const mapState = (state) => {
   return {
     plant: state.plant,
-    users: state.users,
   };
 }
 
@@ -59,7 +54,6 @@ const mapDispatch = (dispatch, { history }) => {
   return {
     fetchPlant: (id) => dispatch(fetchPlant(id)),
     deleteAPlant: (id) => dispatch(deleteAPlant(id, history)),
-    fetchUsers: () => dispatch(fetchUsers()),
   };
 };
 
