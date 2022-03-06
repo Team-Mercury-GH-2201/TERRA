@@ -3,6 +3,7 @@ import axios from 'axios';
 // action constants
 const GET_CART = 'GET_CART';
 const SET_QUANTITY = 'SET_QUANTITY';
+const ADD_TO_CART = 'ADD_TO_CART';
 
 // action creator
 const _getCart = (cart) => {
@@ -19,6 +20,13 @@ const _setQuantity = (cart) => {
   };
 };
 
+const _addToCart = (cart) => {
+  return  {
+    type: ADD_TO_CART,
+    cart
+  }
+}
+
 // thunk
 export const getCart = (userId) => {
   return async (dispatch) => {
@@ -30,6 +38,19 @@ export const getCart = (userId) => {
     }
   };
 };
+
+export const addToCart = (plantId, userId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(`/api/cart/${userId}`, plantId);
+      console.log('THUNK DATA', data)
+      dispatch(_addToCart(data));
+    } catch (error) {
+      
+    }
+  }
+}
+
 
 export const setQuantity = (plantId, userId, quantity) => {
   return async (dispatch) => {
@@ -50,6 +71,8 @@ export const setQuantity = (plantId, userId, quantity) => {
 export default function cartReducer(state = {}, action) {
   switch (action.type) {
     case GET_CART:
+      return action.cart;
+    case ADD_TO_CART:
       return action.cart;
     case SET_QUANTITY:
       return action.cart;

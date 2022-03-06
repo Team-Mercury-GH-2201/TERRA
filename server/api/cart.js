@@ -20,8 +20,29 @@ router.get('/:userId', async (req, res, next) => {
   }
 });
 
-//  set quantity of logged in user cart
 router.put('/:userId', async (req, res, next) => {
+  try {
+    const cartToAddTo = await Cart.findOne({
+      where: {
+        userId: req.params.userId,
+      },
+    });
+    const plant = await Plant.findByPk(req.body.plantId);
+    await cartToAddTo.addPlant(plant);
+    const updatedCart = await Cart.findOne({
+      where: {
+        userId: req.params.userId,
+      },
+      include: [Plant],
+    });
+    res.json(updatedCart);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//  set quantity of logged in user cart
+router.put('/:cartId/:userId', async (req, res, next) => {
   try {
     const plantAndCart = await Cart.findOne({
       where: {
@@ -42,16 +63,19 @@ router.put('/:userId', async (req, res, next) => {
         userId: req.params.userId,
         isComplete: false,
       },
-      include: [Plant],
     });
     let plant = plantAndCart.plants[0];
-    let plants = cart.plants
-    // let plantToBeUpdated = await plant.update(req.body);
+    // let plants = cart.plants
+    // let plantToBeUpdated = await plant.update( { ['plant-cart']: req.body});
+    let plants = await cart.getPlants();
+    // console.log('CART', cart); // this is cart object that has cartId and userID
+    // console.log('CART AND PLANT', plantAndCart.plants[0]); // this is cart object with just one plant in array
+    // console.log('PLANTS', plants); // array of plants in cart
+    // await plantAndCart.setPlants([...plants, ...plant]], {
+    //   through: { quantity: req.body.quantity },
+    // });
 
-    await plantAndCart.setPlants([...plants, [...plant]], {
-      through: { quantity: req.body.quantity },
-    });
-    res.json(cart);
+    res.json(plants);
   } catch (error) {
     next(error);
   }

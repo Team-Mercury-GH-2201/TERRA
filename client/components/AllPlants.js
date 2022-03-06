@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchPlants, deleteAPlant } from '../store/allPlants';
+import { addToCart } from '../store/cart';
 import CreatePlant from './CreatePlant';
 import Navbar from './Navbar';
 
@@ -59,7 +60,10 @@ export class AllPlants extends React.Component {
                   ? plantObj.price / 100 + '.00'
                   : plantObj.price / 100}
               </div>
-              <button>Add to Cart</button>
+              <button type="submit" onClick={() => {
+                console.log(plantObj.id, this.props);
+                this.props.addToCart(plantObj.id, this.props.auth.id)
+              }}>Add to Cart</button>
             </div>
           ))}
         </ul>
@@ -71,6 +75,8 @@ export class AllPlants extends React.Component {
 const mapState = (state) => {
   return {
     plants: state.plants,
+    auth:  state.auth,
+    cart:  state.cart
   };
 };
 
@@ -78,6 +84,7 @@ const mapDispatch = (dispatch) => {
   return {
     getPlants: () => dispatch(fetchPlants()),
     deleteAPlant: (id) => dispatch(deleteAPlant(id, history)),
+    addToCart: (plantId, userId) => dispatch(addToCart(plantId, userId))
   };
 };
 
