@@ -22,12 +22,16 @@ router.get('/:userId', async (req, res, next) => {
 // add to cart api route
 router.put('/add/:userId', async (req, res, next) => {
   try {
-    const cartToAddTo = await Cart.findOne({
+    let cartToAddTo = await Cart.findOne({
       where: {
         userId: req.params.userId,
       },
       include: [Plant]
     });
+    if (!cartToAddTo){
+      cartToAddTo = await Cart.create({});
+      cartToAddTo.setUser(req.params.userId);
+    }
     await cartToAddTo.addPlant(req.body.id);
     const updatedCart = await Cart.findOne({
       where: {
@@ -66,7 +70,7 @@ router.put('/remove/:userId', async (req, res, next) => {
 router.put('/checkout/:cartId', async (req, res, next) => {
   try {
     const cart = await Cart.findByPk(req.params.cartId);
-    res.send(await cart.update(req.body))
+    res.send(await cart.update(req.body));
   } catch (error) {
     next(error);
   }
