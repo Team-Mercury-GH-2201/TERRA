@@ -37,18 +37,19 @@ router.put('/:userId', async (req, res, next) => {
         },
       },
     });
-    let plant = plantAndCart.plants[0];
-    let plantToBeUpdated = await plant.update(req.body);
-
-    await plantAndCart.setPlants([plant], {
-      through: { quantity: req.body.quantity },
-    });
     const cart = await Cart.findOne({
       where: {
         userId: req.params.userId,
         isComplete: false,
       },
       include: [Plant],
+    });
+    let plant = plantAndCart.plants[0];
+    let plants = cart.plants
+    // let plantToBeUpdated = await plant.update(req.body);
+
+    await plantAndCart.setPlants([...plants, [...plant]], {
+      through: { quantity: req.body.quantity },
     });
     res.json(cart);
   } catch (error) {

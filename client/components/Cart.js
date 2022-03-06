@@ -5,6 +5,9 @@ import { getCart, setQuantity } from '../store/cart';
 class Cart extends React.Component {
   constructor() {
     super();
+    this.state = {
+      quantity: 0
+    }
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
@@ -24,6 +27,9 @@ class Cart extends React.Component {
     setQuantity(plantId, userId, quantity);
   }
   render() {
+    if (!this.props.cart) {
+      return <h3>Your cart is empty!</h3>
+    }
     const cart = this.props.cart;
     console.log('PROPS-->', this.props);
     if (!cart.plants) {
