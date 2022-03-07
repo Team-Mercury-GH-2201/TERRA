@@ -1,6 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { fetchUsers } from '../store/users';
+import React from "react";
+import { connect } from "react-redux";
+import { fetchUsers } from "../store/users";
+import Navbar from "./Navbar";
+import AccessForbiddenPage from "./AccessForbiddenPage";
 
 export class AllUsers extends React.Component {
   componentDidMount() {
@@ -10,28 +12,33 @@ export class AllUsers extends React.Component {
     const { users } = this.props;
     return (
       <div>
-        <table className="user-table">
-          <thead>
-            <tr style={{textDecoration: "underline"}}>
-              <th>ID</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Admin</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => {
-              return (
-                <tr key={user.id}>
-                  <td>{user.id}</td>
-                  <td>{user.username.toLowerCase()}</td>
-                  <td>{user.email}</td>
-                  <td>{user.isAdmin ? "Yes" : "No"}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <Navbar />
+        {window.localStorage.getItem("isAdmin") === "false" ? (
+          <AccessForbiddenPage />
+        ) : (
+          <table className="user-table">
+            <thead>
+              <tr style={{ textDecoration: "underline" }}>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Admin</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => {
+                return (
+                  <tr key={user.id}>
+                    <td>{user.id}</td>
+                    <td>{user.username.toLowerCase()}</td>
+                    <td>{user.email}</td>
+                    <td>{user.isAdmin ? "Yes" : "No"}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </div>
     );
   }
