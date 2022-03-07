@@ -103,7 +103,7 @@ export const checkOut = (cartId, history) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.put(`/api/cart/checkout/${cartId}`, {isComplete: true});
-      history.push('/plant-friends'); 
+      // history.push('/plant-friends'); 
     } catch (error) {
       console.error('error in checkout thunk', error)
     }
