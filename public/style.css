@@ -21,17 +21,19 @@ form div {
   margin: 0.7em;
 }
 
+/* All Users Table */
 .user-table {
-  display: flex;
-  flex-direction: row;
   border: 1px solid black;
   border-radius: 5px;
-  width: 500px;
-  padding: 5px;
+  padding: 10px;
+  width: 100vh;
+  text-align: left;
+  background:#d1e7ae;
+  -moz-box-shadow: 4px 4px 4px 4px #92a378;
+  box-shadow: 4px 4px 4px 4px #92a378;
 }
 
-
-
+/* Nav Bar */
 .nav-bar-heading {
   color:#87986a;
   text-align: center;
@@ -45,6 +47,7 @@ form div {
   justify-content: right;
 }
 
+/* Login */
 .login-form {
   display: flex;
   flex-direction: column;

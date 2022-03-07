@@ -1,17 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchPlants } from '../store/allPlants';
+import { fetchPlants, deleteAPlant } from '../store/allPlants';
+import { addToCart, getCart } from '../store/cart';
+
 import CreatePlant from './CreatePlant';
 import Navbar from './Navbar';
 
 export class AllPlants extends React.Component {
   componentDidMount() {
     this.props.getPlants();
+    this.props.getCart(parseInt(this.props.auth.id));
   }
   render() {
     const plants = this.props.plants;
-    if (!this.props.plants || this.props.plants.length === 0) {
+    if (!plants || plants.length === 0) {
       return <h3> Loading your plants...</h3>;
     }
     return (
@@ -51,7 +54,14 @@ export class AllPlants extends React.Component {
                   ? plantObj.price / 100 + '.00'
                   : plantObj.price / 100}
               </div>
-              <button>Add to Cart</button>
+              <button
+                type="submit"
+                onClick={() => {
+                  this.props.addToCart(plantObj, parseInt(this.props.auth.id));
+                }}
+              >
+                Add to Cart
+              </button>
             </div>
           ))}
         </ul>
@@ -63,12 +73,17 @@ export class AllPlants extends React.Component {
 const mapState = (state) => {
   return {
     plants: state.plants,
+    auth: state.auth,
+    cart: state.cart,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     getPlants: () => dispatch(fetchPlants()),
+    deleteAPlant: (id) => dispatch(deleteAPlant(id, history)),
+    addToCart: (plant, userId) => dispatch(addToCart(plant, userId)),
+    getCart: (userId) => dispatch(getCart(userId)),
   };
 };
 

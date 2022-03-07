@@ -20,5 +20,10 @@ const middleware = composeWithDevTools(
 );
 const store = createStore(reducer, middleware);
 
+store.subscribe(() => {
+  const state = store.getState();
+  console.log('STORE STATE', state);
+});
+
 export default store;
 export * from './auth';
