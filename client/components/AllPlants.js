@@ -10,7 +10,9 @@ import Navbar from './Navbar';
 export class AllPlants extends React.Component {
   componentDidMount() {
     this.props.getPlants();
-    this.props.getCart(parseInt(this.props.auth.id));
+    if (this.props.auth.id) {
+      this.props.getCart(parseInt(this.props.auth.id));
+    }
   }
   render() {
     const plants = this.props.plants;
