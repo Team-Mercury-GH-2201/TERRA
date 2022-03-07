@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchPlants, deleteAPlant } from '../store/allPlants';
+import { fetchPlants } from '../store/allPlants';
 import CreatePlant from './CreatePlant';
 import Navbar from './Navbar';
 
@@ -18,10 +18,11 @@ export class AllPlants extends React.Component {
       <div>
         <Navbar />
         <div></div>
-        <div id="createPlantView">
+        {window.localStorage.getItem('isAdmin') === true.toString() ? 
+        (<div id="createPlantView">
           <h2>Add a new plant</h2>
           <CreatePlant />
-        </div>
+        </div>) : null }
         <ul id="allPlantsView">
           {this.props.plants.map((plantObj) => (
             <div className="PlantInfo" key={plantObj.id}>
@@ -30,15 +31,6 @@ export class AllPlants extends React.Component {
                   {' '}
                   Plant Friend Name: {plantObj.name}
                 </Link>
-                <span>
-                  <button
-                    type="button"
-                    className="remove"
-                    onClick={() => this.props.deleteAPlant(plantObj.id)}
-                  >
-                    X
-                  </button>
-                </span>
               </h3>
               <div />
 
@@ -77,7 +69,6 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getPlants: () => dispatch(fetchPlants()),
-    deleteAPlant: (id) => dispatch(deleteAPlant(id, history)),
   };
 };
 

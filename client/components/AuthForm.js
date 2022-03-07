@@ -84,7 +84,6 @@ const mapDispatchLogin = (dispatch) => {
       const formName = evt.target.name;
       const username = evt.target.username.value;
       const password = evt.target.password.value;
-      console.log('========formName========', formName)
       dispatch(authenticate(username, password, formName));
     },
   };
