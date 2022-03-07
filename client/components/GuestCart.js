@@ -4,29 +4,29 @@ class GuestCart extends React.Component {
   constructor() {
     super();
     this.state = {
-      plantToAddToCart: {},
-      plants: [],
+      cart: [],
     };
   }
   componentDidMount() {
     let cart = window.localStorage.getItem('cart');
-    console.log(cart)
-    if (!cart) {
-      cart = window.localStorage.setItem(
-        'cart', JSON.stringify({ isComplete: false, plants: [] })
-      );
-    } else {
-      let test = JSON.parse(cart);
+    // if (!cart) {
+    //   cart = window.localStorage.setItem(
+    //     'cart', JSON.stringify({ plants: [] })
+    //   );
+      let parsedCart = JSON.parse(cart);
       this.setState({
-        plants: test.plants,
+        cart: parsedCart,
       });
     }
-    console.log(cart);
-  }
   render() {
     return (
       <div>
         <h4>Hello</h4>
+        <ul>
+          {this.state.cart.map((plant, idx) => (
+            <li key={idx}>{plant.name}</li>
+          ))}
+        </ul>
       </div>
     );
   }
