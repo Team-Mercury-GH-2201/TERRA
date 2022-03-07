@@ -14,9 +14,10 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
           <Link to="/plant-friends">Plant Friends</Link>
-          {window.localStorage.getItem("isAdmin") === "false" ? (
-            <Link to="/cart">Cart</Link>
-          ) : <Link to="/users">Users</Link>}
+          {window.localStorage.getItem("isAdmin") === "false" ? null : (
+            <Link to="/users">Users</Link>
+          )}
+          <Link to="/cart">Cart</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
