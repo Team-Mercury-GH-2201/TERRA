@@ -24,6 +24,8 @@ Plant.belongsToMany(Cart, { through: plantCart });
 Cart.belongsToMany(Plant, { through: plantCart });
 
 
+
+
 module.exports = {
   db,
   models: {
