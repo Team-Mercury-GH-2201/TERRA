@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { fetchPlants, deleteAPlant } from '../store/allPlants';
-import { addToCart, getCart } from '../store/cart';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { fetchPlants, deleteAPlant } from "../store/allPlants";
+import { addToCart, getCart } from "../store/cart";
 
-import CreatePlant from './CreatePlant';
-import Navbar from './Navbar';
+import CreatePlant from "./CreatePlant";
+import Navbar from "./Navbar";
 
 export class AllPlants extends React.Component {
   constructor() {
@@ -35,6 +35,10 @@ export class AllPlants extends React.Component {
   render() {
     console.log('THIS.STATE', this.state);
     const plants = this.props.plants;
+    const formatToCurrency = (amount) => {
+      return "$" + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+    };
+
     if (!plants || plants.length === 0) {
       return <h3> Loading your plants...</h3>;
     }
@@ -53,7 +57,7 @@ export class AllPlants extends React.Component {
             <div className="PlantInfo" key={plantObj.id}>
               <h3>
                 <Link to={`/plant-friends/${plantObj.id}`}>
-                  {' '}
+                  {" "}
                   Plant Friend Name: {plantObj.name}
                 </Link>
               </h3>
@@ -71,10 +75,8 @@ export class AllPlants extends React.Component {
               </div>
               <br />
               <div className="price">
-                Price: $
-                {String(plantObj.price / 100).length === 2
-                  ? plantObj.price / 100 + '.00'
-                  : plantObj.price / 100}
+                Price:
+                {formatToCurrency(plantObj.price / 100)}
               </div>
               <button
                 type="submit"
