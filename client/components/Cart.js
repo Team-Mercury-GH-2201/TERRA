@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getCart, removeFromCart, setQuantity, checkOut } from '../store/cart';
 import {Checkout} from './Checkout'
 import { Link } from 'react-router-dom';
+import Navbar from './Navbar';
 
 class Cart extends React.Component {
   constructor() {
@@ -42,6 +43,7 @@ class Cart extends React.Component {
     }
     return (
       <div>
+        <Navbar />
         <h4>{`${
           this.props.auth.username[0].toUpperCase() +
           this.props.auth.username.slice(1)

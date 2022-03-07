@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateAPlant } from '../store/allPlants'
-import { fetchPlant } from '../store/singlePlant'
+import { fetchPlant, updateAPlant } from '../store/singlePlant'
+
 
 class EditPlant extends Component {
   constructor(props) {
@@ -29,12 +29,12 @@ class EditPlant extends Component {
     if (prevProps.plant.id !== this.props.plant.id) {
       this.setState({
         name: this.props.plant.name || '',
-      species: this.props.plant.species || '',
-      description: this.props.plant.description || '',
-      careInstructions: this.props.plant.careInstructions || '',
-      imageLink: this.props.plant.imageLink || '',
-      price: this.props.plant.price || '',
-      errorMessage: ''
+        species: this.props.plant.species || '',
+        description: this.props.plant.description || '',
+        careInstructions: this.props.plant.careInstructions || '',
+        imageLink: this.props.plant.imageLink || '',
+        price: this.props.plant.price || '',
+        errorMessage: ''
       });
     }
   }
@@ -47,12 +47,12 @@ class EditPlant extends Component {
 
   async handleSubmit(evt) {
     evt.preventDefault();
-    if (!this.state.name || !this.state.species){
+    if (!this.state.name || !this.state.species) {
       this.setState({ errorMessage: 'You must enter a name and species!' });
-  } else {
-    await this.props.updateAPlant({ ...this.props.plant, ...this.state });
+    } else {
+      await this.props.updateAPlant({ ...this.props.plant, ...this.state });
+    }
   }
-}
 
   render() {
     const { name, species, description, careInstructions, imageLink, price } = this.state;
@@ -63,13 +63,13 @@ class EditPlant extends Component {
           <label htmlFor='plantName'>Plant Friend Name:</label>
           <input name='name' onChange={handleChange} value={name} />
 
-          <label htmlFor='species' placeholder="mm/dd/yyyy" >Species:</label>
+          <label htmlFor='species' >Species:</label>
           <input name='species' onChange={handleChange} value={species} />
 
-          <label htmlFor='description' placeholder="1-10" >Description:</label>
+          <label htmlFor='description'  >Description:</label>
           <input name='description' onChange={handleChange} value={description} />
 
-          <label htmlFor='careInstructions' placeholder="true/false" >Care Instructions:</label>
+          <label htmlFor='careInstructions' >Care Instructions:</label>
           <input name='careInstructions' onChange={handleChange} value={careInstructions} />
 
           <label htmlFor='imageLink' >Image Link:</label>
