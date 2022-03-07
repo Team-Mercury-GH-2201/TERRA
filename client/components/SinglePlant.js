@@ -35,9 +35,11 @@ export class SinglePlant extends React.Component {
         </ul>
         <button
           type="submit"
-          onClick={() =>
-            this.props.addToCart(this.props.plant, parseInt(this.props.auth.id))
+          onClick={() => {
+            this.props.addToCart(this.props.plant, parseInt(this.props.auth.id));
+            window.alert('New plant friend added to cart!');
           }
+        }
             >Add to Cart</button>
         <div>
           {window.localStorage.getItem('isAdmin') === true.toString() ?  (
@@ -49,7 +51,10 @@ export class SinglePlant extends React.Component {
               history={this.props.history}
               type="button"
               className="remove"
-              onClick={() => this.props.deleteAPlant(this.props.plant.id)}
+              onClick={() => {
+                this.props.deleteAPlant(this.props.plant.id)
+              }
+            }
             >
               Delete
             </button>

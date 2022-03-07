@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getCart, removeFromCart, setQuantity, checkOut } from '../store/cart';
+import {Checkout} from './Checkout'
+import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 
 class Cart extends React.Component {
@@ -106,14 +108,16 @@ class Cart extends React.Component {
             </tr>
           </tbody>
         </table>
-        <button
+        <Link to={'/checkout'}>
+          <button
           type="submit"
           onClick={() => {
             this.props.checkOut(cart.id);
           }}
-        >
+         >
           Checkout
         </button>
+        </Link>
       </div>
     );
   }
