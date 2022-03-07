@@ -9,6 +9,7 @@ import AllPlants from './components/AllPlants';
 import SinglePlant from './components/SinglePlant';
 import AllUsers from './components/AllUsers';
 import Cart from './components/Cart';
+import GuestCart from './components/GuestCart';
 
 /**
  * COMPONENT
@@ -38,9 +39,9 @@ class Routes extends Component {
             <Route path='/' exact component={Login} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={Signup} />
-            {<Route exact path='/plant-friends' component={AllPlants} /> }
-            {<Route exact path='/plant-friends/:id' component={SinglePlant} /> }
-            { <Route path="/cart/:id" component={Cart} /> }
+            <Route exact path='/plant-friends' component={AllPlants} />
+            {/* <Route exact path='/plant-friends/:id' component={SinglePlant} /> */}
+            <Route exact path="/guestcart" component={GuestCart} />
           </Switch>
         )}
       </div>
