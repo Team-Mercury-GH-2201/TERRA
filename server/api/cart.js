@@ -25,6 +25,7 @@ router.put('/add/:userId', async (req, res, next) => {
     let cartToAddTo = await Cart.findOne({
       where: {
         userId: req.params.userId,
+        isComplete: false,
       },
       include: [Plant]
     });

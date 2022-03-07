@@ -113,6 +113,7 @@ form div {
 
 }
 
+/*You've placed an order! */
 .terra {
   padding: 200px;
   display: block;
@@ -121,4 +122,16 @@ form div {
 }
 
 
+/* 403 Access Forbidden Page */
+.access-forbidden-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.access-forbidden-page h1 {
+  color: red;
+  font-size: 5em;
+}
 

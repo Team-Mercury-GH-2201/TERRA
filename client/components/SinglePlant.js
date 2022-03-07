@@ -14,6 +14,11 @@ export class SinglePlant extends React.Component {
   }
  
   render() {
+
+    const formatToCurrency = (amount) => {
+      return "$" + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+    };
+
     return (
       <div>
         <Navbar />
@@ -26,7 +31,7 @@ export class SinglePlant extends React.Component {
           <div>Species: {this.props.plant.species}</div>
           <div>About Your Plant Friend: {this.props.plant.description}</div>
           <div>Care: {this.props.plant.careInstructions}</div>
-          <div>Price: {this.props.plant.price}</div>
+          <div>Price: {formatToCurrency(this.props.plant.price/100)}</div>
         </ul>
         <button
           type="submit"
