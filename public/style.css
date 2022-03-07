@@ -1,5 +1,5 @@
 body {
-  font-family:Verdana, Geneva, Tahoma, sans-serif
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 a {
@@ -14,7 +14,7 @@ label {
 nav a {
   display: inline-block;
   margin: 1em 1em 0.5em 1em;
-  font-size: .88em;
+  font-size: 0.88em;
 }
 
 form div {
@@ -28,14 +28,14 @@ form div {
   padding: 10px;
   width: 100vh;
   text-align: left;
-  background:#d1e7ae;
+  background: #d1e7ae;
   -moz-box-shadow: 4px 4px 4px 4px #92a378;
   box-shadow: 4px 4px 4px 4px #92a378;
 }
 
 /* Nav Bar */
 .nav-bar-heading {
-  color:#87986a;
+  color: #87986a;
   text-align: center;
 
   margin: 2em 2em 0em 2em;
@@ -71,13 +71,11 @@ form div {
   height: 8em;
 }
 
-
-
 /*All Plants View */
 #allPlantsView {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 .PlantInfo {
@@ -87,7 +85,7 @@ form div {
   width: 23%;
   margin: 1em;
   padding: 1em 2em 1.5em 2em;
-  border: 2px solid  #d1e7ae;
+  border: 2px solid #d1e7ae;
   background-color: #f7ffe9;
   border-radius: 140px 0px;
   -moz-box-shadow: 4px 4px 4px 4px #92a378;
@@ -103,5 +101,20 @@ form div {
 
 .price {
   font-weight: bold;
-  color: #798862
+  color: #798862;
+}
+
+body {
+  background-image: url('./images/floral_repeat.jpg');
+  height: 100%;
+  background-position: center;
+  background-repeat: repeat;
+  background-size: 30%;
+
+}
+
+.boughtPlant {
+  text-align: center;
+  font-size: 40px;
+  background-color: rgb(217, 229, 189);
 }
