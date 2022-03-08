@@ -5,15 +5,15 @@ import { getCart, removeFromCart, setQuantity, checkOut } from "../store/cart";
 import { Link } from "react-router-dom";
 
 class GuestCart extends React.Component {
-
   constructor() {
     super();
     this.state = {
       cart: {},
-      quantity: '',
+      quantity: "",
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-
 
   componentDidMount() {
     let cart = window.localStorage.getItem("cart");
@@ -29,23 +29,28 @@ class GuestCart extends React.Component {
             name: item.name,
             price: item.price,
             quantity: 1,
-          }
+          };
         } else {
-          cartHashTable[item.name].quantity = cartHashTable[item.name].quantity + 1
+          cartHashTable[item.name].quantity =
+            cartHashTable[item.name].quantity + 1;
         }
       });
-      return cartHashTable
+      return cartHashTable;
     };
 
     const hashedCart = hashifyCartArray(parsedCart);
     this.setState({
       cart: hashedCart,
     });
-  
   }
 
   handleChange(evt) {
-    this.setState({quantity: evt.target.value,})
+    this.setState({ quantity: evt.target.value });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    console.log('[[[[[[[[[[[[[[[[[[[[', event.target.id)
   }
 
   render() {
@@ -60,28 +65,28 @@ class GuestCart extends React.Component {
     }
 
     //arrayify the cart hash table to render using map method
-    const arrayify = cartHashTable => {
-      let array = []
+    const arrayify = (cartHashTable) => {
+      let array = [];
       for (let item in cartHashTable) {
-        array.push(cartHashTable[item])
+        array.push(cartHashTable[item]);
       }
       return array;
-    }
-    let arrayifiedCart = arrayify(this.state.cart)
-    console.log("arraified in render", arrayifiedCart)
+    };
+    let arrayifiedCart = arrayify(this.state.cart);
+    console.log("arraified in render", arrayifiedCart);
     const formatToCurrency = (amount) => {
       return "$" + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
     };
 
     const editQuantity = (array) => {
       for (let i = 0; i < array.length; i++) {
-        let plantObj = array[i]
-        let quantity = plantObj.quantity
-        return quantity 
+        let plantObj = array[i];
+        let quantity = plantObj.quantity;
+        return quantity;
       }
-    }
+    };
 
-    console.log('this.state.cart!!!!!!!!!!!!!', this.state.cart)
+    console.log("this.state.cart!!!!!!!!!!!!!", this.state);
     return (
       <div>
         <Navbar />
@@ -102,16 +107,24 @@ class GuestCart extends React.Component {
                 <tr key={plant.id}>
                   <td>{plant.name}</td>
                   <td>{`${formatToCurrency(plant.price / 100)}`}</td>
-                  <td> 
+                  <td>
                     {plant.quantity}
                     <div>
-                      <form name={plant.id} onSubmit={console.log('hi')}>
-                        <input type="text" name="quantity" value={this.state.quantity} onChange={this.handleChange} style={{ width:"20px" }}/>
+                      <form name={plant.name} id={plant.id} onSubmit={this.handleSubmit}>
+                        <input
+                          type="text"
+                          name="quantity"
+                          
+                          onChange={this.handleChange}
+                          style={{ width: "20px" }}
+                        />
                         <button type="submit"> Update </button>
                       </form>
                     </div>
                   </td>
-                  <td name="total">{`${formatToCurrency(plant.price / 100)}`}</td>
+                  <td name="total">{`${formatToCurrency(
+                    plant.price / 100
+                  )}`}</td>
                   <td>
                     <button
                       type="submit"
@@ -157,7 +170,6 @@ class GuestCart extends React.Component {
     );
   }
 }
-
 
 const mapDispatch = (dispatch, { history }) => {
   return {
