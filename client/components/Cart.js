@@ -34,7 +34,12 @@ class Cart extends React.Component {
   render() {
     console.log(this.props);
     if (!this.props.cart) {
-      return <h3>Your cart is empty!</h3>;
+      return (
+        <div>
+          <Navbar />
+          <h3>Your cart is empty!</h3>
+        </div>
+      );
     }
     const cart = this.props.cart;
     // console.log('PROPS-->', this.props);
