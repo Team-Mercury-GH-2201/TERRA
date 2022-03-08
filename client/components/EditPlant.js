@@ -55,7 +55,7 @@ class EditPlant extends Component {
   }
 
   render() {
-    const { name, species, description, careInstructions, imageLink, price } = this.state;
+    const { name, species, description, careInstructions, imageLink, price, errorMessage } = this.state;
     const { handleSubmit, handleChange } = this;
     return (
       <div>
@@ -77,11 +77,12 @@ class EditPlant extends Component {
 
           <label htmlFor='price' >Price:</label>
           <input name='price' onChange={handleChange} value={price} />
-
+          <div style={{color: "red"}}>{errorMessage}</div>
           <button type='submit'>Submit</button>
         </form>
         <form onSubmit={(ev) => ev.preventDefault()}>
         </form>
+        
       </div>
     );
   }

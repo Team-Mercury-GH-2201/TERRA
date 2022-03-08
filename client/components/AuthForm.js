@@ -10,7 +10,6 @@ import { createUser } from "../store/users";
  */
 const AuthForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
-
   return (
     <div>
       <Banner />
@@ -18,7 +17,7 @@ const AuthForm = (props) => {
         <div>
           <Link to="/login">Login</Link> / <Link to="/signup">Sign Up</Link>
         </div>
-      {error && error.response && <div> {error.response.data} </div>}
+      {error && error.response && <div style={{color: "red"}}> {error.response.data} </div>}
         <div>
           <input
             className="input-field"
@@ -73,7 +72,7 @@ const mapSignup = (state) => {
   return {
     name: "signup",
     displayName: "Sign Up",
-    error: state.auth.error,
+    error: state.users,
   };
 };
 
