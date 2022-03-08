@@ -90,7 +90,6 @@ router.put('/:cartId', async (req, res, next) => {
         through: {
           where: {
             cartId: req.params.cartId,
-            isComplete: false
           },
         },
       },
