@@ -8,6 +8,7 @@ import usersReducer from './users';
 import singlePlantReducer from './singlePlant';
 import cartReducer from './cart';
 
+
 const reducer = combineReducers({
   auth: auth,
   plants: allPlantsReducer,
