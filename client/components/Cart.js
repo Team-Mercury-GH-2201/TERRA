@@ -19,15 +19,17 @@ class Cart extends React.Component {
     this.props.getCart(userId);
   }
   // componentDidUpdate(prevProps) {
-    // if (this.props.quantity !== prevProps.userID) {
-      // this.fetchData(this.props.userID);
+    // if (prevProps.cart.id !== this.props.cart.id) {
+      // this.setState({
+        // quantity: this.props.cart.plants[this.state.plantId]['plant-cart'].quantity
+      // })
     // }
   // }
   handleChange(evt) {
     this.setState({ [evt.target.name]: evt.target.value });
   }
   handleSubmit(event) {
-    event.preventDefault();
+    // event.preventDefault();
     const plantId = parseInt(event.target.name);
     const quantity = parseInt(this.state.quantity);
     const cartId = this.props.cart.id;
