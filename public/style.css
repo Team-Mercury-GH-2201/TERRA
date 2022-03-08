@@ -33,6 +33,14 @@ form div {
   box-shadow: 4px 4px 4px 4px #92a378;
 }
 
+#cart-table {
+  border: 1px solid black;
+  width: 800px;
+  padding: 10px;
+  text-align: left;
+  background: #f7ffe9;
+}
+
 /* Nav Bar */
 .nav-bar-heading {
   color: #87986a;
