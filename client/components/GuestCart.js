@@ -1,36 +1,3 @@
-// import React from 'react';
-
-// class GuestCart extends React.Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       cart: [],
-//     };
-//   }
-//   componentDidMount() {
-//     let cart = window.localStorage.getItem('cart');
-//     let parsedCart = JSON.parse(cart);
-//     this.setState({
-//       cart: parsedCart,
-//     });
-//   }
-//   render() {
-//     return (
-//       <div>
-//         <h4>Hello</h4>
-//         <ul>
-//           {this.state.cart.map((plant, idx) => (
-//             <li key={idx}>{plant.name}</li>
-//           ))}
-//         </ul>
-//       </div>
-//     );
-//   }
-// }
-
-// export default GuestCart;
-
-
 import React from "react";
 import Navbar from "./Navbar";
 import { connect } from "react-redux";
@@ -43,6 +10,7 @@ class GuestCart extends React.Component {
     super();
     this.state = {
       cart: {},
+      quantity: '',
     };
   }
 
@@ -73,15 +41,12 @@ class GuestCart extends React.Component {
     this.setState({
       cart: hashedCart,
     });
-
-  //   let cart = window.localStorage.getItem('cart');
-  //   let parsedCart = JSON.parse(cart);
-  //   this.setState({
-  //     cart: parsedCart,
-  //   });
   
   }
 
+  handleChange(evt) {
+    this.setState({quantity: evt.target.value,})
+  }
 
   render() {
     let cartInLocalStorage = window.localStorage.getItem("cart");
@@ -103,10 +68,19 @@ class GuestCart extends React.Component {
       return array;
     }
     let arrayifiedCart = arrayify(this.state.cart)
-
+    console.log("arraified in render", arrayifiedCart)
     const formatToCurrency = (amount) => {
       return "$" + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
     };
+
+    const editQuantity = (array) => {
+      for (let i = 0; i < array.length; i++) {
+        let plantObj = array[i]
+        let quantity = plantObj.quantity
+        return quantity 
+      }
+    }
+
     console.log('this.state.cart!!!!!!!!!!!!!', this.state.cart)
     return (
       <div>
@@ -128,17 +102,13 @@ class GuestCart extends React.Component {
                 <tr key={plant.id}>
                   <td>{plant.name}</td>
                   <td>{`${formatToCurrency(plant.price / 100)}`}</td>
-                  <td>
+                  <td> 
+                    {plant.quantity}
                     <div>
-                      {/* continue working from here!!! */}
-                      <select name={plant.id} >
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                      </select>
+                      <form name={plant.id} onSubmit={console.log('hi')}>
+                        <input type="text" name="quantity" value={this.state.quantity} onChange={this.handleChange} style={{ width:"20px" }}/>
+                        <button type="submit"> Update </button>
+                      </form>
                     </div>
                   </td>
                   <td name="total">{`${formatToCurrency(plant.price / 100)}`}</td>
