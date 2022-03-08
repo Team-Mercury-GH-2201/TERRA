@@ -1,5 +1,7 @@
 const Plant = require('../db/models/Plant');
 const Cart = require('../db/models/Cart');
+const { models } = require('../db');
+const plantCart = models.plantCart;
 
 const router = require('express').Router();
 
@@ -33,7 +35,23 @@ router.put('/add/:userId', async (req, res, next) => {
       cartToAddTo = await Cart.create({});
       cartToAddTo.setUser(req.params.userId);
     }
-    await cartToAddTo.addPlant(req.body.id);
+    // if (cartToAddTo.hasPlant(req.body.id)) {
+      // let plant = req.body
+      // let currQuantity = cartToAddTo.plants.plant['plant-cart'].quantity;
+      // await cartToAddTo.addPlant(req.body.id, { through: { quantity: currQuantity++ } } )
+      // const association = await plantCart.findOne({ where: { cartId: cartToAddTo.id, plantId: req.body.id}})
+      // console.log("QUANTITY BEFORE", association.quantity)
+      // const updatedQty = association.quantity++;
+      // console.log("QUANTITY AFTER", association.quantity)
+
+      // await cartToAddTo.addPlant(req.body.id, { through: { quantity: updatedQty}});
+      // 
+    // } else {
+      await cartToAddTo.addPlant(req.body.id);
+
+    // }
+    // }
+
     const updatedCart = await Cart.findOne({
       where: {
         userId: req.params.userId,
@@ -61,7 +79,7 @@ router.put('/remove/:userId', async (req, res, next) => {
       where: {
         userId: req.params.userId,
       },
-      include: [Plant],
+      include: { model: Plant}
     });
     res.json(updatedCart);
   } catch (error) {

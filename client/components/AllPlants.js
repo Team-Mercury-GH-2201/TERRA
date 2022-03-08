@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchPlants, deleteAPlant } from "../store/allPlants";
-import { addToCart, getCart } from "../store/cart";
+import { addToCart, getCart, setQuantity } from "../store/cart";
 
 import CreatePlant from "./CreatePlant";
 import Navbar from "./Navbar";
@@ -13,6 +13,7 @@ export class AllPlants extends React.Component {
     this.state = {
       cart: []
     };
+    // this.checkPlantInCart = this.checkPlantInCart.bind(this);
   }
   componentDidMount() {
     this.props.getPlants();
@@ -32,6 +33,15 @@ export class AllPlants extends React.Component {
       }
     }
   }
+  // checkPlantInCart(plantObjId, array) {
+    // for (let i = 0; i < array.length; i++) {
+      // let currObj = array[i];
+      // if (currObj.id === plantObjId) {
+        // return true;
+      // }
+    // }
+    // return false;
+  // }
   render() {
     console.log('THIS.STATE', this.state);
     const plants = this.props.plants;
@@ -53,7 +63,8 @@ export class AllPlants extends React.Component {
           </div>
         ) : null}
         <ul id="allPlantsView">
-          {this.props.plants.map((plantObj) => (
+          {console.log(this.props.plants)}
+          {this.props.plants.map((plantObj, idx) => (
             <div className="PlantInfo" key={plantObj.id}>
               <h3>
                 <Link to={`/plant-friends/${plantObj.id}`}>
@@ -81,6 +92,7 @@ export class AllPlants extends React.Component {
               <button
                 type="submit"
                 onClick={() => {
+                  // {plantObj in this.props.cart.plants ? this.props.setQuantity(plantObj.id, this.props.cart.id, plantObj) :
 
                   this.props.addToCart(plantObj, parseInt(this.props.auth.id));
                   window.alert('New plant friend added to cart!');
@@ -98,8 +110,9 @@ export class AllPlants extends React.Component {
                         'cart',
                         JSON.stringify(newPlants)
                       );
-                  }
+                  // }
                 }}
+              }
               >
                 Add to Cart
               </button>
@@ -125,6 +138,7 @@ const mapDispatch = (dispatch) => {
     deleteAPlant: (id) => dispatch(deleteAPlant(id, history)),
     addToCart: (plant, userId) => dispatch(addToCart(plant, userId)),
     getCart: (userId) => dispatch(getCart(userId)),
+    setQuantity: (plantId, cartId, quantity) => dispatch(setQuantity(plantId, cartId, quantity)),
   };
 };
 
