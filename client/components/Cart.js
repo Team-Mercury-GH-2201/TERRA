@@ -9,9 +9,10 @@ class Cart extends React.Component {
   constructor() {
     super();
     this.state = {
-      quantity: 0,
+      quantity: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
     console.log('This is the user ID-->', this.props.auth.id);
@@ -19,20 +20,19 @@ class Cart extends React.Component {
     this.props.getCart(userId);
   }
   handleChange(evt) {
-    console.log('This is the plant ID-->', parseInt(evt.target.name));
-    console.log('This is the cart ID-->', this.props.cart.id);
-    console.log(
-      'This is the event target value-->',
-      parseInt(evt.target.value)
-    );
-
-    const plantId = parseInt(evt.target.name);
-    const userId = this.props.auth.id;
-    const quantity = parseInt(evt.target.value);
-
-    setQuantity(plantId, userId, quantity);
+    this.setState({[evt.target.name]: evt.target.value,})
   }
+  handleSubmit(event) {
+    event.preventDefault();
+    const plantId = parseInt(event.target.name);
+    const quantity = parseInt(this.state.quantity);
+    const cartId = this.props.cart.id;
+    this.props.setQuantity(plantId, cartId, quantity);
+    this.setState({
+      quantity: ''
+    })  }
   render() {
+    console.log(this.props);
     if (!this.props.cart) {
       return <h3>Your cart is empty!</h3>;
     }
@@ -64,19 +64,15 @@ class Cart extends React.Component {
                 <tr key={plant.id}>
                   <td>{plant.name}</td>
                   <td>{`$${plant.price / 100}`}</td>
-                  <td>
+                  <td> {plant['plant-cart'].quantity}
                     <div>
-                      <select name={plant.id} onChange={this.handleChange}>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                      </select>
+                      <form name={plant.id} onSubmit={this.handleSubmit}>
+                        <input type="text" name="quantity" value={this.state.quantity} onChange={this.handleChange} style={{ width:"20px" }}/>
+                        <button type="submit"> Update </button>
+                      </form>
                     </div>
                   </td>
-                  <td name="total">{`$${plant.price / 100}`}</td>
+                  <td name="total">{`$${plant.price / 100 * plant['plant-cart'].quantity}`}</td>
                   <td>
                     <button
                       type="submit"
@@ -100,7 +96,7 @@ class Cart extends React.Component {
                 <strong>
                   {cart.plants
                     .reduce((accum, plant) => {
-                      return accum + plant.price / 100;
+                      return accum + plant.price / 100 * plant['plant-cart'].quantity;
                     }, 0)
                     .toFixed(2)}
                 </strong>
@@ -131,8 +127,8 @@ const mapDispatch = (dispatch, { history }) => {
   return {
     getCart: (userId) => dispatch(getCart(userId)),
     removeFromCart: (plant, userId) => dispatch(removeFromCart(plant, userId)),
-    setQuantity: (plantId, userId, quantity) =>
-      dispatch(setQuantity(plantId, userId, quantity)),
+    setQuantity: (plantId, cartId, quantity) =>
+      dispatch(setQuantity(plantId, cartId, quantity)),
     checkOut: (cartId) => dispatch(checkOut(cartId, history)),
   };
 };

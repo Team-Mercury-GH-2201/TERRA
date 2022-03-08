@@ -9,15 +9,11 @@ class GuestCart extends React.Component {
   }
   componentDidMount() {
     let cart = window.localStorage.getItem('cart');
-    // if (!cart) {
-    //   cart = window.localStorage.setItem(
-    //     'cart', JSON.stringify({ plants: [] })
-    //   );
-      let parsedCart = JSON.parse(cart);
-      this.setState({
-        cart: parsedCart,
-      });
-    }
+    let parsedCart = JSON.parse(cart);
+    this.setState({
+      cart: parsedCart,
+    });
+  }
   render() {
     return (
       <div>

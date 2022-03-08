@@ -84,15 +84,16 @@ export const removeFromCart = (plant, userId) => {
   };
 };
 
-export const setQuantity = (plantId, userId, quantity) => {
+export const setQuantity = (plantId, cartId, quantity) => {
   return async (dispatch) => {
+    console.log('data', plantId, cartId, quantity);
     try {
-      const { data: updated } = await axios.put(`/api/cart/${userId}`, {
+      const { data } = await axios.put(`/api/cart/${cartId}`, {
         plantId,
         quantity,
       });
-      console.log('THUNK QUANTITY DATA', updated);
-      dispatch(_setQuantity(updated));
+      console.log('THUNK QUANTITY DATA', data);
+      dispatch(_setQuantity(data));
     } catch (error) {
       console.error('error in  setQuantity', error);
     }

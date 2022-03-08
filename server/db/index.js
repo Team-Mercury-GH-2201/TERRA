@@ -25,12 +25,11 @@ Cart.belongsToMany(Plant, { through: plantCart });
 
 
 
-
 module.exports = {
   db,
   models: {
     User,
     Plant,
-    Cart,
+    Cart
   },
 };
