@@ -9,12 +9,14 @@ class GuestCart extends React.Component {
   constructor() {
     super();
     this.state = {
+      //{anna: {quantity: 3. id: 1}, anna: {quantity: 3. id: 1}}
       cart: {},
       quantity: '',
     };
+    this.handleChange = this.handleChange.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-
+  
   componentDidMount() {
     let cart = window.localStorage.getItem("cart");
     let parsedCart = JSON.parse(cart);
@@ -45,8 +47,18 @@ class GuestCart extends React.Component {
   }
 
   handleChange(evt) {
-    this.setState({quantity: evt.target.value,})
+    this.setState({[evt.target.name]: evt.target.value,})
   }
+
+  // handleSubmit(event) {
+  //   event.preventDefault();
+  //     for (let obj in this.state.cart) {
+  //       let plantObj = obj;
+  //       // window.localStorage.setItem('cart', )
+  //       plantObj.quantity = this.state.quantity;
+  //     }
+  //   };
+  // }
 
   render() {
     let cartInLocalStorage = window.localStorage.getItem("cart");
@@ -72,6 +84,7 @@ class GuestCart extends React.Component {
     const formatToCurrency = (amount) => {
       return "$" + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
     };
+  
 
     const editQuantity = (array) => {
       for (let i = 0; i < array.length; i++) {
@@ -82,6 +95,7 @@ class GuestCart extends React.Component {
     }
 
     console.log('this.state.cart!!!!!!!!!!!!!', this.state.cart)
+    console.log('what is my state?', this.state)
     return (
       <div>
         <Navbar />
@@ -106,7 +120,10 @@ class GuestCart extends React.Component {
                     {plant.quantity}
                     <div>
                       <form name={plant.id} onSubmit={console.log('hi')}>
-                        <input type="text" name="quantity" value={this.state.quantity} onChange={this.handleChange} style={{ width:"20px" }}/>
+                        <input type="text" 
+                        name="quantity" 
+                        onChange={this.handleChange} 
+                        style={{ width:"20px" }}/>
                         <button type="submit"> Update </button>
                       </form>
                     </div>
@@ -155,8 +172,9 @@ class GuestCart extends React.Component {
         </Link>
       </div>
     );
-  }
+  };
 }
+
 
 
 const mapDispatch = (dispatch, { history }) => {
