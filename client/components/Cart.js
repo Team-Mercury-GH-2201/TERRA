@@ -92,7 +92,7 @@ class Cart extends React.Component {
                 <strong>
                   {cart.plants
                     .reduce((accum, plant) => {
-                      return accum + plant.price / 100;
+                      return accum + plant.price / 100 * plant['plant-cart'].quantity;
                     }, 0)
                     .toFixed(2)}
                 </strong>
