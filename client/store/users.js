@@ -3,14 +3,15 @@ import { me } from './auth';
 
 const SET_USERS = 'SET_USERS';
 const CREATE_USER = 'CREATE_USER';
-const  SINGLE_USER = 'SINGLE_USER';
+const SINGLE_USER = 'SINGLE_USER';
+const ERROR = 'ERROR';
 
 const _singleUser = (user) => {
   return {
     type: SINGLE_USER,
-    user
-  }
-}
+    user,
+  };
+};
 
 const _setUsers = (users) => {
   return {
@@ -26,15 +27,17 @@ const _createUser = (user) => {
   };
 };
 
+const _error = (error) => {
+  return {
+    type: ERROR,
+    error,
+  };
+};
+
 export const fetchUser = (id, history) => {
   return async (dispatch) => {
     const { data } = await axios.get(`/api/users/${id}`);
-  //  if (!plant) {
-  //    history.push("/plant-friends");
-  //  } else {
-    console.log('what is my single user data', data)
-      dispatch(_singleUser(data));
-  //  }
+    dispatch(_singleUser(data));
   };
 };
 
@@ -55,11 +58,12 @@ export const createUser = (user) => {
     try {
       const { data } = await axios.post('/auth/signup', user);
       dispatch(_createUser(data));
-      const res = await axios.post(`/auth/login`, {username, password})
-      window.localStorage.setItem('token', res.data.token)
-      dispatch(me())
-    } catch (error) {
-      console.error('error in createUser thunk!', error);
+      const res = await axios.post(`/auth/login`, { username, password });
+      window.localStorage.setItem('token', res.data.token);
+      dispatch(me());
+    } catch (createUserError) {
+      console.error('error in createUser thunk!', createUserError);
+      dispatch(_error(createUserError));
     }
   };
 };
@@ -69,9 +73,11 @@ export default function usersReducer(state = [], action) {
     case SET_USERS:
       return action.users;
     case CREATE_USER:
-      return [...state, action.user]
-      case SINGLE_USER:
-        return state.user
+      return [...state, action.user];
+    case SINGLE_USER:
+      return state.user;
+    case ERROR:
+      return action.error;
     default:
       return state;
   }

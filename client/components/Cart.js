@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getCart, removeFromCart, setQuantity, checkOut } from '../store/cart';
-import {Checkout} from './Checkout'
+import { Checkout } from './Checkout';
 import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 
@@ -15,24 +15,30 @@ class Cart extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
-    console.log('This is the user ID-->', this.props.auth.id);
     let userId = this.props.auth.id;
     this.props.getCart(userId);
   }
+  // componentDidUpdate(prevProps) {
+    // if (prevProps.cart.id !== this.props.cart.id) {
+      // this.setState({
+        // quantity: this.props.cart.plants[this.state.plantId]['plant-cart'].quantity
+      // })
+    // }
+  // }
   handleChange(evt) {
-    this.setState({[evt.target.name]: evt.target.value,})
+    this.setState({ [evt.target.name]: evt.target.value });
   }
   handleSubmit(event) {
-    event.preventDefault();
+    // event.preventDefault();
     const plantId = parseInt(event.target.name);
     const quantity = parseInt(this.state.quantity);
     const cartId = this.props.cart.id;
     this.props.setQuantity(plantId, cartId, quantity);
     this.setState({
-      quantity: ''
-    })  }
+      quantity: '',
+    });
+  }
   render() {
-    console.log(this.props);
     if (!this.props.cart) {
       return (
         <div>
@@ -42,10 +48,13 @@ class Cart extends React.Component {
       );
     }
     const cart = this.props.cart;
-    // console.log('PROPS-->', this.props);
     if (!cart.plants) {
       return <h3>loading your cart...</h3>;
     }
+    const formatToCurrency = (amount) => {
+      return '$' + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    };
+
     return (
       <div>
         <Navbar />
@@ -53,7 +62,7 @@ class Cart extends React.Component {
           this.props.auth.username[0].toUpperCase() +
           this.props.auth.username.slice(1)
         }'s Cart`}</h4>
-        <table>
+        <table id="cart-table">
           <thead>
             <tr>
               <th>Product</th>
@@ -68,16 +77,27 @@ class Cart extends React.Component {
               return (
                 <tr key={plant.id}>
                   <td>{plant.name}</td>
-                  <td>{`$${plant.price / 100}`}</td>
-                  <td> {plant['plant-cart'].quantity}
+                  <td>{formatToCurrency(plant.price / 100)}</td>
+                  <td>
+                    {' '}
+                    {plant['plant-cart'].quantity}
                     <div>
                       <form name={plant.id} onSubmit={this.handleSubmit}>
-                        <input type="text" name="quantity" value={this.state.quantity} onChange={this.handleChange} style={{ width:"20px" }}/>
+                        <input
+                          type="text"
+                          name="quantity"
+                          onChange={this.handleChange}
+                          style={{ width: '20px' }}
+                        />
                         <button type="submit"> Update </button>
                       </form>
                     </div>
                   </td>
-                  <td name="total">{`$${plant.price / 100 * plant['plant-cart'].quantity}`}</td>
+                  <td name="total">
+                    {formatToCurrency(
+                      (plant.price / 100) * plant['plant-cart'].quantity
+                    )}
+                  </td>
                   <td>
                     <button
                       type="submit"
@@ -99,11 +119,14 @@ class Cart extends React.Component {
               <td></td>
               <td>
                 <strong>
-                  {cart.plants
-                    .reduce((accum, plant) => {
-                      return accum + plant.price / 100 * plant['plant-cart'].quantity;
+                  {formatToCurrency(
+                    cart.plants.reduce((accum, plant) => {
+                      return (
+                        accum +
+                        (plant.price / 100) * plant['plant-cart'].quantity
+                      );
                     }, 0)
-                    .toFixed(2)}
+                  )}
                 </strong>
               </td>
             </tr>
@@ -111,13 +134,13 @@ class Cart extends React.Component {
         </table>
         <Link to={'/checkout'}>
           <button
-          type="submit"
-          onClick={() => {
-            this.props.checkOut(cart.id);
-          }}
-         >
-          Checkout
-        </button>
+            type="submit"
+            onClick={() => {
+              this.props.checkOut(cart.id);
+            }}
+          >
+            Checkout
+          </button>
         </Link>
       </div>
     );
