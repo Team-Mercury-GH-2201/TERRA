@@ -80,7 +80,7 @@ export class AllPlants extends React.Component {
               <button
                 type="submit"
                 onClick={() => {
-                  window.alert('New plant friend added to cart!'); 
+                  window.alert('New plant friend added to cart!');
                   if (this.props.auth.id) {
                     this.props.addToCart(
                       plantObj,

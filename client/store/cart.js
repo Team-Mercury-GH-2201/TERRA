@@ -67,6 +67,7 @@ export const getCart = (userId) => {
 export const addToCart = (plant, userId) => {
   return async (dispatch) => {
     try {
+      console.log('THUNK GOT CALLED')
       const { data: updated } = await axios.put(
         `/api/cart/add/${userId}`,
         plant

@@ -1,5 +1,7 @@
 const Plant = require('../db/models/Plant');
 const Cart = require('../db/models/Cart');
+const { models } = require('../db/index');
+const plantCart = models.plantCart;
 
 const router = require('express').Router();
 
@@ -39,15 +41,29 @@ router.put('/add/:userId', async (req, res, next) => {
       },
       include: [Plant],
     });
+
     if (!cartToAddTo || cartToAddTo.isComplete === true) {
       cartToAddTo = await Cart.create({});
       cartToAddTo.setUser(req.params.userId);
     }
-    await cartToAddTo.addPlant(req.body.id);
+    if (await cartToAddTo.hasPlant(req.body.id)) {
+      let cartId = cartToAddTo.id;
+      let plantId = req.body.id;
+      let associated = await plantCart.findOne({
+        where: { plantId: plantId, cartId: cartId },
+      });
+      let quantity = associated.quantity + 1;
+      await cartToAddTo.addPlant(req.body.id, {
+        through: { quantity: quantity },
+      });
+    } else if (!await cartToAddTo.hasPlant(req.body.id)) {
+      await cartToAddTo.addPlant(req.body.id);
+    }
+
     const updatedCart = await Cart.findOne({
       where: {
         userId: req.params.userId,
-        isComplete: false
+        isComplete: false,
       },
       include: [Plant],
     });
@@ -60,9 +76,12 @@ router.put('/add/:userId', async (req, res, next) => {
 // remove from cart
 router.put('/remove/:userId', async (req, res, next) => {
   try {
+    console.log(req.body.id);
+    
     const cartToAddTo = await Cart.findOne({
       where: {
         userId: req.params.userId,
+        isComplete: false
       },
       include: [Plant],
     });
@@ -70,6 +89,7 @@ router.put('/remove/:userId', async (req, res, next) => {
     const updatedCart = await Cart.findOne({
       where: {
         userId: req.params.userId,
+        isComplete: false,
       },
       include: [Plant],
     });
@@ -107,11 +127,13 @@ router.put('/:cartId', async (req, res, next) => {
     const cart = await Cart.findOne({
       where: { id: req.params.cartId, isComplete: false },
     });
-    const result = await cart.addPlant(plant, { through: { quantity: req.body.quantity } });
+    const result = await cart.addPlant(plant, {
+      through: { quantity: req.body.quantity },
+    });
     const finalCart = await Cart.findOne({
       where: { id: req.params.cartId, isComplete: false },
-      include: [Plant]
-    })
+      include: [Plant],
+    });
     res.json(finalCart);
   } catch (error) {
     next(error);

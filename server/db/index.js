@@ -30,6 +30,7 @@ module.exports = {
   models: {
     User,
     Plant,
-    Cart
+    Cart,
+    plantCart
   },
 };

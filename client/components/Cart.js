@@ -29,7 +29,7 @@ class Cart extends React.Component {
     this.setState({ [evt.target.name]: evt.target.value });
   }
   handleSubmit(event) {
-    // event.preventDefault();
+    event.preventDefault();
     const plantId = parseInt(event.target.name);
     const quantity = parseInt(this.state.quantity);
     const cartId = this.props.cart.id;
