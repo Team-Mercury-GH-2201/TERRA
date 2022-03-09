@@ -42,7 +42,7 @@ router.put('/add/:userId', async (req, res, next) => {
       let associated = await plantCart.findOne({
         where: { plantId: plantId, cartId: cartId },
       });
-      let quantity = associated.quantity + 1;
+      let quantity = associated.quantity++;
       await cartToAddTo.addPlant(req.body.id, {
         through: { quantity: quantity },
       });
