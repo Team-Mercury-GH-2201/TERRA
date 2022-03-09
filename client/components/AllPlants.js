@@ -47,7 +47,7 @@ export class AllPlants extends React.Component {
       <div>
         <Navbar />
         <div></div>
-        {window.localStorage.getItem('isAdmin') === true.toString() ? (
+        {this.props.auth.isAdmin ? (
           <div id="createPlantView">
             <h2>Add a new plant</h2>
             <CreatePlant />
