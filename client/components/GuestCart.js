@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 import { connect } from "react-redux";
-import { getCart, removeFromCart, setQuantity, checkOut } from "../store/cart";
+import { checkOut } from "../store/cart";
 import { Link } from "react-router-dom";
 
 const distinctPlantsInCart = [];
@@ -16,6 +16,7 @@ class GuestCart extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.buildNewCart = this.buildNewCart.bind(this);
+    this.removeFromCart = this.removeFromCart.bind(this);
   }
 
   componentDidMount() {
@@ -51,6 +52,20 @@ class GuestCart extends React.Component {
   handleChange(evt) {
     this.setState({ quantity: evt.target.value });
   }
+
+  removeFromCart (plantName) {
+    //removing item from state
+    let stateCartCopy = {...this.state.cart};
+    delete stateCartCopy[plantName]
+    this.setState({
+      cart: stateCartCopy
+    });
+
+    //removing item from local storage
+    const newCart = this.buildNewCart(this.state.cart)
+    window.localStorage.setItem("cart", JSON.stringify(newCart))
+
+  }
   
   //helper function to reformat the state cart to match localStorage cart
   buildNewCart (stateCartObj) {
@@ -81,7 +96,7 @@ class GuestCart extends React.Component {
     });
     
     //change the quantity in local storage
-    const newCart = this.buildNewCart(this.state.cart, event.target.id)
+    const newCart = this.buildNewCart(this.state.cart)
     window.localStorage.setItem("cart", JSON.stringify(newCart))
   }
 
@@ -153,7 +168,7 @@ class GuestCart extends React.Component {
                     <button
                       type="submit"
                       onClick={() => {
-                        this.props.removeFromCart(plant, this.props.auth.id);
+                        this.removeFromCart(plant.name)
                       }}
                     >
                       Remove
@@ -200,10 +215,6 @@ class GuestCart extends React.Component {
 
 const mapDispatch = (dispatch, { history }) => {
   return {
-    getCart: (userId) => dispatch(getCart(userId)),
-    removeFromCart: (plant, userId) => dispatch(removeFromCart(plant, userId)),
-    setQuantity: (plantId, userId, quantity) =>
-      dispatch(setQuantity(plantId, userId, quantity)),
     checkOut: (cartId) => dispatch(checkOut(cartId, history)),
   };
 };
