@@ -42,7 +42,7 @@ export class SinglePlant extends React.Component {
         }
             >Add to Cart</button>
         <div>
-          {window.localStorage.getItem('isAdmin') === true.toString() ?  (
+          {this.props.auth.isAdmin ?  (
           <div>
           <EditPlant match={this.props.match} history={this.props.history} />
           <span>

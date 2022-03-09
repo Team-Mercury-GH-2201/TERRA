@@ -42,11 +42,12 @@ export class AllPlants extends React.Component {
     if (!plants || plants.length === 0) {
       return <h3> Loading your plants...</h3>;
     }
+
     return (
       <div>
         <Navbar />
         <div></div>
-        {window.localStorage.getItem('isAdmin') === true.toString() ? (
+        {this.props.auth.isAdmin ? (
           <div id="createPlantView">
             <h2>Add a new plant</h2>
             <CreatePlant />

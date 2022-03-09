@@ -24,7 +24,6 @@ export const me = () => async dispatch => {
         authorization: token
       }
     })
-    window.localStorage.setItem('isAdmin', res.data.isAdmin)
     return dispatch(setAuth(res.data))
   }
 }
@@ -41,7 +40,6 @@ export const authenticate = (username, password, method) => async dispatch => {
 
 export const logout = () => {
   window.localStorage.removeItem(TOKEN)
-  window.localStorage.removeItem('isAdmin')
   history.push('/login')
   return {
     type: SET_AUTH,
