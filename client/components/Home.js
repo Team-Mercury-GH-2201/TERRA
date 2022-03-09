@@ -11,7 +11,10 @@ export const Home = props => {
   return (
     <div>
       <Navbar />
-      <h3>Welcome, {username}</h3>
+      <h2>{`Welcome, ${
+          username[0].toUpperCase() +
+          username.slice(1)
+        }!`}</h2>
     </div>
   )
 }

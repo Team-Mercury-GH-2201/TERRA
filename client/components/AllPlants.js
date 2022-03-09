@@ -48,7 +48,6 @@ export class AllPlants extends React.Component {
         <div></div>
         {this.props.auth.isAdmin ? (
           <div id="createPlantView">
-            <h2>Add a new plant</h2>
             <CreatePlant />
           </div>
         ) : null}
@@ -81,10 +80,7 @@ export class AllPlants extends React.Component {
               <button
                 type="submit"
                 onClick={() => {
-
-
-                  window.alert('New plant friend added to cart!');
-                  
+                  window.alert('New plant friend added to cart!'); 
                   if (this.props.auth.id) {
                     this.props.addToCart(
                       plantObj,
