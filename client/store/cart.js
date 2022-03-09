@@ -122,7 +122,7 @@ export const checkOut = (cartId) => {
 export const guestCheckout = (plantsArr) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post('/guest-checkout', {plants: plantsArr});
+      const { data } = await axios.post('/api/cart/guest-checkout', {plants: plantsArr});
       window.localStorage.setItem('cart', '[]')
       // dispatch(_guestCheckout(data));
     } catch (error) {
