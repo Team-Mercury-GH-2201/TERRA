@@ -8,9 +8,29 @@ import EditPlant from './EditPlant';
 import Navbar from './Navbar'
 
 export class SinglePlant extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      cart: []
+    };
+  }
   componentDidMount() {
     this.props.fetchPlant(this.props.match.params.id);
-    this.props.getCart(parseInt(this.props.auth.id));
+    if (this.props.auth.id) {
+      this.props.getCart(parseInt(this.props.auth.id));
+    } else {
+      let cart = window.localStorage.getItem('cart');
+      if (!cart) {
+        cart = window.localStorage.setItem(
+          'cart',
+          JSON.stringify([])
+        );
+      } else {
+        this.setState({
+          cart: JSON.parse(cart),
+        });
+      }
+    }
   }
  
   render() {
@@ -18,6 +38,7 @@ export class SinglePlant extends React.Component {
     const formatToCurrency = (amount) => {
       return "$" + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
     };
+
 
     return (
       <div>
@@ -36,8 +57,23 @@ export class SinglePlant extends React.Component {
         <button
           type="submit"
           onClick={() => {
-            this.props.addToCart(this.props.plant, parseInt(this.props.auth.id));
+
             window.alert('New plant friend added to cart!');
+
+            if (this.props.auth.id) {
+              this.props.addToCart(
+                this.props.plant,
+                parseInt(this.props.auth.id)
+              );
+            } else {
+                let newPlants = [...this.state.cart];
+                newPlants.push(this.props.plant);
+                this.setState({cart: newPlants})
+                window.localStorage.setItem(
+                  'cart',
+                  JSON.stringify(newPlants)
+                );
+            }
           }
         }
             >Add to Cart</button>
