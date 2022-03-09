@@ -20,8 +20,6 @@ const _editPlant = (plant) => {
 export const updateAPlant = (plant, history) => {
   return async (dispatch) => {
     const { data } = await axios.put(`/api/plant-friends/${plant.id}`, plant);
-    console.log('updated plant data', data)
-    console.log('what is my history', history)
     dispatch(_editPlant(data));
     // dispatch(fetchPlants(data))
     history.push(`/plant-friends`);
@@ -34,7 +32,6 @@ export const fetchPlant = (id, history) => {
   //  if (!plant) {
   //    history.push("/plant-friends");
   //  } else {
-    console.log('what is my single plant data?', data)
       dispatch(setplant(data));
   //  }
   };

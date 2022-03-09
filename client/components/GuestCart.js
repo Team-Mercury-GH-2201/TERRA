@@ -62,7 +62,7 @@ class GuestCart extends React.Component {
     });
 
     //removing item from local storage
-    const newCart = this.buildNewCart(this.state.cart)
+    const newCart = this.buildNewCart(stateCartCopy)
     window.localStorage.setItem("cart", JSON.stringify(newCart))
 
   }
