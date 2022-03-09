@@ -58,7 +58,8 @@ class EditPlant extends Component {
     const { name, species, description, careInstructions, imageLink, price, errorMessage } = this.state;
     const { handleSubmit, handleChange } = this;
     return (
-      <div>
+      <div >
+        <h2>Edit Your Plant</h2>
         <form id='edit-plant-form' onSubmit={handleSubmit}>
           <label htmlFor='plantName'>Plant Friend Name:</label>
           <input name='name' onChange={handleChange} value={name} />

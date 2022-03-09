@@ -49,7 +49,6 @@ export class AllPlants extends React.Component {
         <div></div>
         {window.localStorage.getItem('isAdmin') === true.toString() ? (
           <div id="createPlantView">
-            <h2>Add a new plant</h2>
             <CreatePlant />
           </div>
         ) : null}

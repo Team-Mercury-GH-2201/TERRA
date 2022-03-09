@@ -42,6 +42,8 @@ form div {
   background: #f7ffe9;
 }
 
+
+
 /* Nav Bar */
 .nav-bar-heading {
   color: #87986a;
@@ -85,6 +87,11 @@ form div {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+#createPlantView {
+  display: flex;
+  justify-content: center;
 }
 
 .PlantInfo {
@@ -143,4 +150,74 @@ form div {
   color: red;
   font-size: 5em;
 }
+
+/* Create Plant */
+
+#form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 80px;
+  padding: 0px;
+  border: 7px;
+  border-color: #92a378;
+  border-style: dotted;
+  border-radius: 10px;
+  width: 60%;
+}
+
+#createPlantForm {
+  width: 50vw;
+  padding: 1em;
+}
+
+#createPlantForm div {
+  display: flex;
+  padding: 4px;
+  justify-content: right;
+}
+
+#createPlantForm label {
+  width: 60%
+}
+
+#createPlantForm input {
+  width:100%;
+}
+
+/* Single Plant */
+
+.singlePlantView {
+  display: flex;
+  justify-content: center;
+}
+#singlePlant {
+  display: flex;
+  padding: 30px;
+}
+
+.singlePlant-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px;
+}
+
+.singlePlant-info div {
+  padding: 4px;
+  display: flex;
+}
+
+#singlePlant-name {
+  font-size: 30px;
+  margin: 40px 20px 20px 0px;
+  text-align: center;
+}
+
+.singlePlant-info button {
+  margin-top: 30px;
+  padding: 10px;
+}
+
 
