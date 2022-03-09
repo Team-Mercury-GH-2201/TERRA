@@ -195,6 +195,7 @@ form div {
 #singlePlant {
   display: flex;
   padding: 30px;
+  margin-top: 80px;
 }
 
 .singlePlant-info {
@@ -219,5 +220,7 @@ form div {
   margin-top: 30px;
   padding: 10px;
 }
+
+
 
 
