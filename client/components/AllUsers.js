@@ -10,10 +10,11 @@ export class AllUsers extends React.Component {
   }
   render() {
     const { users } = this.props;
+    console.log('props', this.props)
     return (
       <div>
         <Navbar />
-        {window.localStorage.getItem("isAdmin") === "false" ? (
+        {!this.props.isLoggedIn || !this.props.auth.isAdmin ? (
           <AccessForbiddenPage />
         ) : (
           <table className="user-table">
@@ -47,6 +48,8 @@ export class AllUsers extends React.Component {
 const mapState = (state) => {
   return {
     users: state.users,
+    auth: state.auth,
+    isLoggedIn: !!state.auth.id,
   };
 };
 

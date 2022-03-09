@@ -33,7 +33,6 @@ export class AllPlants extends React.Component {
     }
   }
   render() {
-    console.log('THIS.STATE', this.state);
     const plants = this.props.plants;
     const formatToCurrency = (amount) => {
       return "$" + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
@@ -47,7 +46,7 @@ export class AllPlants extends React.Component {
       <div>
         <Navbar />
         <div></div>
-        {window.localStorage.getItem('isAdmin') === true.toString() ? (
+        {this.props.auth.isAdmin ? (
           <div id="createPlantView">
             <CreatePlant />
           </div>
@@ -81,10 +80,7 @@ export class AllPlants extends React.Component {
               <button
                 type="submit"
                 onClick={() => {
-
-                  // this.props.addToCart(plantObj, parseInt(this.props.auth.id));
-                  window.alert('New plant friend added to cart!');
-                  
+                  window.alert('New plant friend added to cart!'); 
                   if (this.props.auth.id) {
                     this.props.addToCart(
                       plantObj,

@@ -8,15 +8,36 @@ import EditPlant from "./EditPlant";
 import Navbar from "./Navbar";
 
 export class SinglePlant extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      cart: []
+    };
+  }
   componentDidMount() {
     this.props.fetchPlant(this.props.match.params.id);
-    this.props.getCart(parseInt(this.props.auth.id));
+    if (this.props.auth.id) {
+      this.props.getCart(parseInt(this.props.auth.id));
+    } else {
+      let cart = window.localStorage.getItem('cart');
+      if (!cart) {
+        cart = window.localStorage.setItem(
+          'cart',
+          JSON.stringify([])
+        );
+      } else {
+        this.setState({
+          cart: JSON.parse(cart),
+        });
+      }
+    }
   }
 
   render() {
     const formatToCurrency = (amount) => {
       return "$" + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
     };
+
 
     return (
       <div>
