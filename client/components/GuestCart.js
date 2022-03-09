@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 import { connect } from "react-redux";
-import { checkOut } from "../store/cart";
+import { checkOut, guestCheckout } from "../store/cart";
 import { Link } from "react-router-dom";
 
 const distinctPlantsInCart = [];
@@ -62,7 +62,7 @@ class GuestCart extends React.Component {
     });
 
     //removing item from local storage
-    const newCart = this.buildNewCart(this.state.cart)
+    const newCart = this.buildNewCart(stateCartCopy)
     window.localStorage.setItem("cart", JSON.stringify(newCart))
 
   }
@@ -111,7 +111,6 @@ class GuestCart extends React.Component {
         </div>
       );
     }
-
     //arrayify the cart hash table to render using map method
     const arrayify = (cartHashTable) => {
       let array = [];
@@ -121,11 +120,11 @@ class GuestCart extends React.Component {
       return array;
     };
     let arrayifiedCart = arrayify(this.state.cart);
-
     const formatToCurrency = (amount) => {
       return "$" + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
     };
-  
+    let plantIdArrays = distinctPlantsInCart.map((plant) => plant.id);
+    console.log(plantIdArrays);
     return (
       <div>
         <Navbar />
@@ -141,9 +140,9 @@ class GuestCart extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {arrayifiedCart.map((plant) => {
+            {arrayifiedCart.map((plant, idx) => {
               return (
-                <tr key={plant.id}>
+                <tr key={idx}>
                   <td>{plant.name}</td>
                   <td>{`${formatToCurrency(plant.price / 100)}`}</td>
                   <td>
@@ -162,7 +161,7 @@ class GuestCart extends React.Component {
                     </div>
                   </td>
                   <td name="total">{`${formatToCurrency(
-                    plant.price / 100
+                    plant.price / 100 * plant.quantity
                   )}`}</td>
                   <td>
                     <button
@@ -202,7 +201,8 @@ class GuestCart extends React.Component {
           <button
             type="submit"
             onClick={() => {
-              this.props.checkOut(cart.id);
+              console.log(distinctPlantsInCart)
+              this.props.guestCheckout(plantIdArrays);
             }}
           >
             Checkout
@@ -215,7 +215,8 @@ class GuestCart extends React.Component {
 
 const mapDispatch = (dispatch, { history }) => {
   return {
-    checkOut: (cartId) => dispatch(checkOut(cartId, history)),
+    // checkOut: (cartId) => dispatch(checkOut(cartId, history)),
+    guestCheckout: (plantsIdArray) => dispatch(guestCheckout(plantsIdArray))
   };
 };
 
