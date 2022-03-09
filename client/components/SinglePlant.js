@@ -75,7 +75,7 @@ export class SinglePlant extends React.Component {
             </div>
           </ul>
         <div>
-          {window.localStorage.getItem("isAdmin") === true.toString() ? (
+          {this.props.auth.isAdmin ? (
             <div>
               <EditPlant
                 match={this.props.match}
