@@ -53,7 +53,6 @@ export class SinglePlant extends React.Component {
               </div>
             </div>
           </ul>
-        </div>
         <div>
           {window.localStorage.getItem("isAdmin") === true.toString() ? (
             <div>
@@ -61,21 +60,9 @@ export class SinglePlant extends React.Component {
                 match={this.props.match}
                 history={this.props.history}
               />
-              <span>
-                <button
-                  match={this.props.match}
-                  history={this.props.history}
-                  type="button"
-                  className="remove"
-                  onClick={() => {
-                    this.props.deleteAPlant(this.props.plant.id);
-                  }}
-                >
-                  Delete
-                </button>
-              </span>
             </div>
           ) : null}
+        </div>
         </div>
       </div>
     );
@@ -95,7 +82,6 @@ const mapDispatch = (dispatch, { history }) => {
     fetchPlant: (id) => dispatch(fetchPlant(id)),
     getCart: (userId) => dispatch(getCart(userId)),
     addToCart: (plant, userId) => dispatch(addToCart(plant, userId)),
-    deleteAPlant: (id) => dispatch(deleteAPlant(id, history)),
   };
 };
 

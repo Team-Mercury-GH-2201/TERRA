@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchPlant, updateAPlant } from "../store/singlePlant";
+import { deleteAPlant } from "../store/allPlants";
 
 class EditPlant extends Component {
   constructor(props) {
@@ -106,8 +107,19 @@ class EditPlant extends Component {
           </div>
 
           <div style={{ color: "red" }}>{errorMessage}</div>
-          <div>
-            <button type="submit">Submit</button>
+          <div id="buttons">
+            <button type="submit">Submit Change</button>
+            <button
+              match={this.props.match}
+              history={this.props.history}
+              type="button"
+              className="remove"
+              onClick={() => {
+                this.props.deleteAPlant(this.props.plant.id);
+              }}
+            >
+              Delete
+            </button>
           </div>
         </form>
         <form onSubmit={(ev) => ev.preventDefault()}></form>
@@ -123,6 +135,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch, { history }) => ({
   fetchPlant: (id) => dispatch(fetchPlant(id)),
   updateAPlant: (plant) => dispatch(updateAPlant(plant, history)),
+  deleteAPlant: (id) => dispatch(deleteAPlant(id, history)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditPlant);

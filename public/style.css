@@ -190,10 +190,12 @@ form div {
 
 .singlePlantView {
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 #singlePlant {
   display: flex;
+  justify-content: center;
   padding: 30px;
   margin-top: 80px;
 }
@@ -221,6 +223,10 @@ form div {
   padding: 10px;
 }
 
+#buttons button {
+  padding: 8px;
+  margin: 8px 0px 0px 32px;
+}
 
 
 
