@@ -215,7 +215,7 @@ class GuestCart extends React.Component {
 
 const mapDispatch = (dispatch, { history }) => {
   return {
-    // checkOut: (cartId) => dispatch(checkOut(cartId, history)),
+    checkOut: (cartId) => dispatch(checkOut(cartId, history)),
     guestCheckout: (plantsIdArray) => dispatch(guestCheckout(plantsIdArray))
   };
 };
