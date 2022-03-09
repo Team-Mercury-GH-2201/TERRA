@@ -5,6 +5,16 @@ const plantCart = models.plantCart;
 
 const router = require('express').Router();
 
+router.post('/guest-checkout', async (req, res, next) => {
+  try {
+    console.log('REQ.BODY', req.body);
+   let guestCart = await Cart.create({isComplete: true});
+   res.send(await guestCart.addPlants(req.body.plants));
+  } catch (error) {
+    next(error)
+  }
+})
+
 // get logged-in user cart
 router.get('/:userId', async (req, res, next) => {
   try {
@@ -129,5 +139,7 @@ router.put('/:cartId', async (req, res, next) => {
     next(error);
   }
 });
+
+
 
 module.exports = router;
