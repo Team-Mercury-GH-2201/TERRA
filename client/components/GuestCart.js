@@ -4,15 +4,18 @@ import { connect } from "react-redux";
 import { getCart, removeFromCart, setQuantity, checkOut } from "../store/cart";
 import { Link } from "react-router-dom";
 
+const distinctPlantsInCart = [];
+
 class GuestCart extends React.Component {
   constructor() {
     super();
     this.state = {
-      cart: {},
+      cart: {}, 
       quantity: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.buildNewCart = this.buildNewCart.bind(this);
   }
 
   componentDidMount() {
@@ -30,6 +33,7 @@ class GuestCart extends React.Component {
             price: item.price,
             quantity: 1,
           };
+          distinctPlantsInCart.push(item)
         } else {
           cartHashTable[item.name].quantity =
             cartHashTable[item.name].quantity + 1;
@@ -47,11 +51,40 @@ class GuestCart extends React.Component {
   handleChange(evt) {
     this.setState({ quantity: evt.target.value });
   }
+  
+  //helper function to reformat the state cart to match localStorage cart
+  buildNewCart (stateCartObj) {
+    const newCart = [];
+    for (let plant in stateCartObj) {
+      let plantQty = stateCartObj[plant].quantity;
+      for (let i=0; i < distinctPlantsInCart.length; i++) {
+        if (stateCartObj[plant].id === distinctPlantsInCart[i].id) {
+          while (plantQty > 0) {
+            newCart.push(distinctPlantsInCart[i])
+            plantQty = plantQty - 1
+          }
+        }
+      }
+    }
+    return newCart;
+  }
 
   handleSubmit(event) {
-    event.preventDefault()
-    console.log('[[[[[[[[[[[[[[[[[[[[', event.target.id)
+    //change the quantity in this.state.cart
+    let stateCartCopy = {...this.state.cart};
+    const plantToChange = event.target.name
+    stateCartCopy[plantToChange].quantity = this.state.quantity
+
+    this.setState({
+      cart: stateCartCopy,
+      quantity: '',
+    });
+    
+    //change the quantity in local storage
+    const newCart = this.buildNewCart(this.state.cart, event.target.id)
+    window.localStorage.setItem("cart", JSON.stringify(newCart))
   }
+
 
   render() {
     let cartInLocalStorage = window.localStorage.getItem("cart");
@@ -73,25 +106,16 @@ class GuestCart extends React.Component {
       return array;
     };
     let arrayifiedCart = arrayify(this.state.cart);
-    console.log("arraified in render", arrayifiedCart);
+
     const formatToCurrency = (amount) => {
       return "$" + amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
     };
-
-    const editQuantity = (array) => {
-      for (let i = 0; i < array.length; i++) {
-        let plantObj = array[i];
-        let quantity = plantObj.quantity;
-        return quantity;
-      }
-    };
-
-    console.log("this.state.cart!!!!!!!!!!!!!", this.state);
+  
     return (
       <div>
         <Navbar />
-        <h4>Hello</h4>
-        <table>
+        <h4>Hello Guest,</h4>
+        <table id="cart-table">
           <thead>
             <tr>
               <th>Product</th>
@@ -138,22 +162,25 @@ class GuestCart extends React.Component {
                 </tr>
               );
             })}
-            {/* <tr>
-              <td>
+            <tr>
+            <td>
                 <strong>Total: </strong>
               </td>
               <td></td>
               <td></td>
               <td>
-                <strong>
-                  {cart.plants
-                    .reduce((accum, plant) => {
-                      return accum + plant.price / 100;
+              <strong>
+                  {formatToCurrency(
+                    arrayifiedCart.reduce((accum, plant) => {
+                      return (
+                        accum +
+                        (plant.price / 100) * plant.quantity
+                      );
                     }, 0)
-                    .toFixed(2)}
+                  )}
                 </strong>
               </td>
-            </tr> */}
+            </tr>
           </tbody>
         </table>
         <Link to={"/checkout"}>
@@ -168,7 +195,7 @@ class GuestCart extends React.Component {
         </Link>
       </div>
     );
-  }
+  };
 }
 
 const mapDispatch = (dispatch, { history }) => {

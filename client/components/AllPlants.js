@@ -42,6 +42,7 @@ export class AllPlants extends React.Component {
     if (!plants || plants.length === 0) {
       return <h3> Loading your plants...</h3>;
     }
+
     return (
       <div>
         <Navbar />
