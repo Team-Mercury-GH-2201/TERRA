@@ -42,14 +42,12 @@ router.put('/add/:userId', async (req, res, next) => {
       let associated = await plantCart.findOne({
         where: { plantId: plantId, cartId: cartId },
       });
-      let quantity = associated.quantity++;
+      let quantity = associated.quantity + 1;
       await cartToAddTo.addPlant(req.body.id, {
         through: { quantity: quantity },
       });
-      console.log('HI IF')
     } else if (!await cartToAddTo.hasPlant(req.body.id)) {
       await cartToAddTo.addPlant(req.body.id);
-      console.log('HI ELSE')
     }
 
     const updatedCart = await Cart.findOne({
